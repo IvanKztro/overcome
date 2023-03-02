@@ -1,13 +1,8 @@
 <h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content>
     
-    <form class="flex flex-col " [formGroup]="ticketForm" *ngIf="!isupload">
-       
-        <section *ngIf="!isupload" class="flex flex-col gap-4 justify-center items-center">
-        </section>
-        <br>
-
-    
+    <form class="flex flex-col " [formGroup]="ticketForm" >
+   
         <mat-form-field appearance="outline">
             <mat-label>Titulo</mat-label>
             <input type="text" matInput formControlName="title">

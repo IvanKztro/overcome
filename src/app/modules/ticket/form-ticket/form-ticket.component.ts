@@ -1,50 +1,13 @@
-import { UserProfile } from 'src/app/shared/types/user';
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialog,
-} from '@angular/material/dialog';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-// import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Timestamp } from '@angular/fire/firestore';
-import { Ticket, StatusT } from 'src/app/shared/types/ticket';
-import { Subscription } from 'rxjs';
-import { TicketsService } from 'src/app/shared/services/tickets.service';
+import { StatusT } from 'src/app/shared/types/ticket';
 
-// import { OfficesService } from 'src/app/shared/services/offices.service';
-import { Observable } from 'rxjs';
-
-import {
-  Storage,
-  ref,
-  deleteObject,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
-  percentage,
-  getDownloadURL,
-} from '@angular/fire/storage';
-
-import {
-  AngularFireStorage,
-  AngularFireUploadTask,
-} from '@angular/fire/compat/storage';
 import { UsersService } from 'src/app/shared/services/users.service';
-const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { TicketsService } from 'src/app/shared/services/tickets.service';
 
 @Component({
   selector: 'app-form-ticket',
@@ -53,21 +16,6 @@ const MY_DATE_FORMATS = {
 })
 export class FormTicketComponent implements OnInit {
   ticketForm!: FormGroup;
-
-  //var to upload file
-  task!: AngularFireUploadTask;
-  percentage!: Observable<any> | null;
-  snapshot!: Observable<any> | null;
-  downloadUrl: any;
-  htmlPreview!: any;
-  previewPhoto: any = null;
-
-  // key: string;
-  fileState: boolean = false;
-  isupload: boolean = false;
-  fileinput: any = null;
-  dataedited?: any;
-  currentUser?: UserProfile | null;
 
   teams = ['Soporte', 'Desarrollo', 'Atencion a clientes'];
   bugs = ['Bug', 'Feature'];
@@ -90,13 +38,9 @@ export class FormTicketComponent implements OnInit {
       typeAction: string;
       labelButton: string;
       ticketId: string;
-      // attachmentUrl: string;
-    },
-    private storage: Storage
+    }
   ) {
     this.ticketForm = data.ticketForm;
-    // this.previewPhoto = data.attachmentUrl;
-    // this.ss.getOffices();
     this.us.getUsers();
   }
 
@@ -115,9 +59,6 @@ export class FormTicketComponent implements OnInit {
       return;
     }
     this.isClicked = true;
-
-    // const referenceOwner = user.createdBy ? user.createdBy : 'none';
-    // console.log(referenceOwner);
 
     if (this.data.typeAction === 'Create') this.addTicket(user.uid);
 
@@ -192,7 +133,6 @@ export class FormTicketComponent implements OnInit {
         duration: 4000,
       });
       this.dialogRef.close();
-      this.dataedited = null;
     } catch (error: any) {
       this.snackBar.open(`${error.message} erro al modificar`, 'Close', {
         duration: 4000,

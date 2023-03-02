@@ -29,28 +29,12 @@ export class UsersService {
     this.users$ = collectionData(ref) as Observable<UserProfile[]>;
   }
 
-  async addUser(data: UserProfile) {
-    const docRef = doc(collection(this.firestore, 'users'));
-    data.uid = docRef.id;
-    await setDoc(docRef, data);
-  }
-
   async updateUser(userId: string, updates: Partial<UserProfile>) {
     try {
       const docRef = doc(collection(this.firestore, 'users'), userId);
       await updateDoc(docRef, updates);
     } catch (error) {
       console.log('Error on update user: ', userId, error);
-    }
-  }
-
-  async deleteUser(id: string) {
-    // const docRef = doc(collection(this.firestore, 'users', id));
-    try {
-      await deleteDoc(doc(this.firestore, 'users', id));
-      // location.reload();
-    } catch (error) {
-      console.log(error);
     }
   }
 }

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketsService } from 'src/app/shared/services/tickets.service';
-import { Ticket, TypeError } from './../../../shared/types/ticket';
+import { Ticket } from './../../../shared/types/ticket';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -44,7 +44,7 @@ export class TicketsListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.currentUser = await this.auth.getUser();
-    if (this.currentUser?.role) {
+    if (this.currentUser) {
       this.ticketsService.getTickets(this.currentUser);
       this.subscriptionTickets = this.ticketsService.ticketsuser$?.subscribe(
         (tickets) => {
@@ -59,7 +59,6 @@ export class TicketsListComponent implements OnInit {
             this.tickets = tickets;
             this.alltickets = tickets;
             this.ticketsService.ticketsAll = tickets;
-
             tickets?.map((ticket) => {
               if (ticket.status === StatusT.newt) {
                 this.ticketsnews?.push(ticket);
@@ -102,7 +101,6 @@ export class TicketsListComponent implements OnInit {
         ticketForm: this.ticketForm,
         labelButton: 'Crear',
         ticketId: '',
-        // attachmentUrl: '',
       },
       width: '440px',
     });
@@ -132,6 +130,4 @@ export class TicketsListComponent implements OnInit {
       width: '440px',
     });
   }
-
-  // ngOnInit(): void {}
 }

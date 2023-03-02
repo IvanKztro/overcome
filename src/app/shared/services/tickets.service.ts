@@ -27,12 +27,8 @@ export class TicketsService {
   urlTicket = '';
   constructor(private firestore: Firestore, private auth: AuthService) {}
 
-  getTickets(user: any) {
-    // console.log(user);
-    const refUser = query(
-      collection(this.firestore, 'users'),
-      where('uid', '==', user.uid)
-    );
+  getTickets(userP: any) {
+    const refUser = query(collection(this.firestore, 'users'));
 
     this.users$ = collectionData(refUser) as Observable<UserProfile[]>;
 
@@ -43,7 +39,7 @@ export class TicketsService {
       map(([tickets, users]) => {
         return tickets?.map((ticket) => ({
           ...ticket,
-          creator: users?.find((user) => user.uid === ticket.createdBy),
+          creator: users?.find((user) => userP.uid === user.uid),
           manager: users?.find((user) => user.uid === ticket.incharge),
         }));
       })

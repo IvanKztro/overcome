@@ -1,13 +1,12 @@
-<div  class="nav-bar bg-blue-200 w-full" *ngIf="auth.user$ | async as user">
-    <section class="flex justify-end bg-red-200">
+<div  class="nav-bar w-full" *ngIf="auth.user$ | async as user">
+    <section class="flex justify-end ">
 
-        <div class="display-name" fxShow.sm="false" fxShow.xs="false">
+        <div class="display-name" >
             Hola, {{ user.displayName }}
         </div>
-        <div>
+        <div class="ml-4">
             <button mat-menu-item (click)="logout()">
-                <mat-icon>logout</mat-icon>
-                <span>Salir</span>
+                <p class="text-lg mt-3">Cerrar sesión</p>
             </button>
         </div>
     </section>
