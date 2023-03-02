@@ -39,7 +39,7 @@ export class TicketsService {
       map(([tickets, users]) => {
         return tickets?.map((ticket) => ({
           ...ticket,
-          creator: users?.find((user) => userP.uid === user.uid),
+          creator: users?.find((user) => user.uid === ticket.createdBy),
           manager: users?.find((user) => user.uid === ticket.incharge),
         }));
       })

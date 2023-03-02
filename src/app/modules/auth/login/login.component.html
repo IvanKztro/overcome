@@ -6,7 +6,7 @@
             </label>
             <input
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="displayName" type="text" placeholder="correo" formControlName="displayName">
+                id="displayName" type="text" placeholder="Nombre" formControlName="displayName">
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -14,7 +14,7 @@
             </label>
             <input
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email" type="text" placeholder="correo" formControlName="email">
+                id="email" type="text" placeholder="Correo" formControlName="email">
         </div>
         <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -45,9 +45,15 @@
         <div class="flex gap-4 items-center justify-between" *ngIf="visibility">
         
             <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button" (click)="registerUser()">
                 Aceptar
+            </button>
+
+            <button
+                class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="visibilityToggle()">
+                Cancelar
             </button>
         </div>
 
