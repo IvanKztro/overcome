@@ -1,0 +1,90 @@
+<div class="sm:mx-[5%] md:mx-[10%] lg:mx-[30%] xl:mx-[35%]" fxLayout="column" fxLayoutAlign="center center">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"  [formGroup]="signForm">
+        <div class="mb-4" *ngIf="visibility">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="displayName">
+                Nombre
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="displayName" type="text" placeholder="correo" formControlName="displayName">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                Correo
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email" type="text" placeholder="correo" formControlName="email">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                Contraseña
+            </label>
+            <input
+                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" type="password" placeholder="******************" formControlName="password">
+            <p class="text-red-500 text-xs italic">contraseña necesaria.</p>
+        </div>
+        <div class="flex gap-4 items-center justify-between" *ngIf="!visibility">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"  (click)="login()" [disabled]="!signForm.valid">
+                Iniciar
+            </button>
+
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="visibilityToggle()">
+                Registrar
+            </button>
+        </div>
+        <a *ngIf="!visibility" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mt-4" href="#">
+            Olvidaste contraseña?
+        </a>
+
+        <div class="flex gap-4 items-center justify-between" *ngIf="visibility">
+        
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="registerUser()">
+                Aceptar
+            </button>
+        </div>
+
+    </form>
+    <p class="text-center text-gray-500 text-xs">
+        &copy;2020 example. All rights reserved.
+    </p>
+</div>
+
+<!-- <div class="container" fxLayout="column" fxLayoutAlign="center center">
+    <div class="login elevation-03" fxLayout="column" fxLayoutGap="20px">
+        <div>
+           
+            <h2>Overcome Tickets</h2>
+        </div>
+        <form fxLayout="column" [formGroup]="signForm">
+            <div class=" flex flex-col">
+
+                <div>
+                    <label for="">Usuario:</label>
+                    <input type="text">
+                </div>
+
+                <div>
+                    <label for="">Password:</label>
+                    <input type="password">
+                </div>
+    
+            </div>
+           
+            <div fxLayout="row" fxFlex.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between start"
+                fxLayoutAlign.xs="center center" class="acceptance">
+               
+            </div>
+            <button mat-raised-button color="primary" (click)="login()" [disabled]="!signForm.valid">
+                Ingresar
+            </button>
+        </form>
+    </div>
+</div> -->

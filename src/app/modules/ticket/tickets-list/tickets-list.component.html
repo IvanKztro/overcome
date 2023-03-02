@@ -1,0 +1,139 @@
+
+<div class="flex justify-end ">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createTicket()">
+        Crear Ticket
+    </button>
+</div>
+<div class="flex gap-4 mx-3 mt-5 w-full">
+
+
+    <section class="w-4/12"  >
+        <h3 class="text-center">Nuevo</h3>
+        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketsnews">
+    
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+                <div class="flex font-bold text-md mb-2">
+                    <div>{{ticket.title}}</div>
+                    <div class="px-2 ">
+                        <span *ngIf="ticket.typeError == 'Bug'"
+                            class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
+                            {{ticket.typeError}}
+                        </span>
+                        <span *ngIf="ticket.typeError == 'Feature'"
+                            class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.typeError}}
+                        </span>
+                    </div>
+                </div>
+                <!-- <p class="text-gray-700 text-base">
+                   {{ticket.id}}
+                </p>  -->
+                 <p class="text-gray-700 text-base">
+                   {{ticket.description}}
+                </p> 
+                <p class="text-gray-700 text-base">
+                    Equipo: {{ticket.team}}
+                </p>
+
+                <span class="text-gray-700 text-sm">
+                    creador: {{ticket?.creator?.displayName}}
+                </span><br>
+
+                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
+                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                </span>
+                
+            </div>
+            
+        </div>
+    
+    </section>
+
+
+    <section class="w-4/12">
+        <h3 class="text-center">En proceso</h3>
+        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketsprocess">
+    
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+                <div class="flex font-bold text-md mb-2">
+                    <div>{{ticket.title}}</div>
+                    <div class="px-2 ">
+                        <span *ngIf="ticket.typeError == 'Bug'"
+                            class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
+                            {{ticket.typeError}}
+                        </span>
+                        <span *ngIf="ticket.typeError == 'Feature'"
+                            class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.typeError}}
+                        </span>
+                    </div>
+                </div>
+                <!-- <p class="text-gray-700 text-base">
+                       {{ticket.id}}
+                    </p>  -->
+                <p class="text-gray-700 text-base">
+                    {{ticket.description}}
+                </p>
+                <p class="text-gray-700 text-base">
+                    Equipo: {{ticket.team}}
+                </p>
+    
+                <span class="text-gray-700 text-sm">
+                    creador: {{ticket?.creator?.displayName}}
+                </span><br>
+    
+                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
+                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                </span>
+    
+            </div>
+    
+        </div>
+    
+    </section>
+
+    <section class="w-4/12">
+        <h3 class="text-center">Completado</h3>
+        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketscomplets">
+    
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+                <div class="flex font-bold text-md mb-2">
+                    <div>{{ticket.title}}</div>
+                    <div class="px-2 ">
+                        <span *ngIf="ticket.typeError == 'Bug'"
+                            class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
+                            {{ticket.typeError}}
+                        </span>
+                        <span *ngIf="ticket.typeError == 'Feature'"
+                            class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.typeError}}
+                        </span>
+                    </div>
+                </div>
+                <!-- <p class="text-gray-700 text-base">
+                           {{ticket.id}}
+                        </p>  -->
+                <p class="text-gray-700 text-base">
+                    {{ticket.description}}
+                </p>
+                <p class="text-gray-700 text-base">
+                    Equipo: {{ticket.team}}
+                </p>
+    
+                <span class="text-gray-700 text-sm">
+                    creador: {{ticket?.creator?.displayName}}
+                </span><br>
+    
+                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
+                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                </span>
+    
+            </div>
+    
+        </div>
+    
+    </section>
+    
+    
+
+</div> 

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "overcome-test": {
+      "hosting": {
+        "overcome-test": [
+          "overcome-test"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "overcome-test"
+  }
+}
