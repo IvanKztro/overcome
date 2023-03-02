@@ -5,7 +5,6 @@ export interface Ticket {
   title: string;
   createdAt?: Timestamp;
   createdBy: string;
-  incharge?: string;
   team?: Team;
   typeError: TypeError;
   levelError: LevelError;
@@ -35,4 +34,5 @@ export enum StatusT {
   newt = 'Nuevo',
   proccesst = 'En proceso',
   completet = 'Atendido',
+  archived = 'Archivado',
 }

@@ -2,6 +2,15 @@
 <mat-dialog-content>
     
     <form class="flex flex-col " [formGroup]="ticketForm" >
+
+        <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let s of statusss" [value]="s">
+                    {{ s }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
    
         <mat-form-field appearance="outline">
             <mat-label>Titulo</mat-label>
@@ -17,8 +26,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
-
+        
         <mat-form-field appearance="outline">
             <mat-label>Tipo Error</mat-label>
             <mat-select formControlName="typeError">
@@ -28,7 +36,6 @@
             </mat-select>
         </mat-form-field>
 
-
         <mat-form-field appearance="outline">
             <mat-label>Nivel Error</mat-label>
             <mat-select formControlName="levelError">
@@ -37,42 +44,18 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        
+
         <mat-form-field appearance="outline">
             <mat-label>Versión</mat-label>
             <input type="text" matInput formControlName="softwareVersion">
         </mat-form-field>
-
+        
         <mat-form-field appearance="outline" >
             <mat-label>Descripcion</mat-label>
             <textarea matInput formControlName="description" rows="3"></textarea>
         </mat-form-field>
 
-
-        <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <mat-select formControlName="status">
-                <mat-option *ngFor="let s of statusss" [value]="s">
-                    {{ s }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-      
-
-        <mat-form-field appearance="outline">
-            <mat-label>Responsable</mat-label>
-            <mat-select formControlName="incharge">
-                <ng-container *ngIf="us.users$ | async as users">
-                    <mat-option *ngFor="let user of users" [value]="user.uid">
-                        {{ user.displayName }}
-                    </mat-option>
-                </ng-container>
-            </mat-select>
-        </mat-form-field>
-
-
-
+    
     </form> 
 </mat-dialog-content>
 <mat-dialog-actions class="flex justify-end">

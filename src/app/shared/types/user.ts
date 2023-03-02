@@ -7,10 +7,7 @@ export interface UserProfile {
   emailVerified: boolean;
   phoneNumber?: string | null;
   role?: TypeRole;
-  isAnonymous?: boolean;
   providerData?: any[];
-  client?: string;
-  plan?: string;
   status?: string;
   createdBy?: string;
   createdAt?: Timestamp;

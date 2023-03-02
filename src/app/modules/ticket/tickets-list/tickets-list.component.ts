@@ -33,11 +33,10 @@ export class TicketsListComponent implements OnInit {
   ) {
     this.ticketForm = this.fb.group({
       title: ['', [Validators.required]],
-      team: ['', [Validators.required]],
+      team: [''],
       typeError: ['', [Validators.required]],
       levelError: ['', [Validators.required]],
-      softwareVersion: ['', [Validators.required]],
-      incharge: ['', [Validators.required]],
+      softwareVersion: [''],
       status: [''],
     });
   }
@@ -85,13 +84,12 @@ export class TicketsListComponent implements OnInit {
     this.ticketForm = this.fb.group({
       title: ['', [Validators.required]],
       // sizes: [''],
-      team: ['', [Validators.required]],
+      team: [''],
       typeError: ['', [Validators.required]],
       levelError: ['', [Validators.required]],
-      softwareVersion: ['', [Validators.required]],
+      softwareVersion: [''],
       status: [''],
       description: ['', [Validators.required]],
-      incharge: ['', [Validators.required]],
     });
 
     this.dialog.open(FormTicketComponent, {
@@ -116,7 +114,6 @@ export class TicketsListComponent implements OnInit {
       softwareVersion: [ticket.softwareVersion],
       status: [ticket.status ? ticket.status : ''],
       description: [ticket.description],
-      incharge: [ticket.incharge],
     });
 
     this.dialog.open(FormTicketComponent, {

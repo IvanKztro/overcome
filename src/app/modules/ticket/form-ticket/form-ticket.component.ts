@@ -19,8 +19,8 @@ export class FormTicketComponent implements OnInit {
 
   teams = ['Soporte', 'Desarrollo', 'Atencion a clientes'];
   bugs = ['Bug', 'Feature'];
-  levels = ['Higt', 'Medium', 'Low'];
-  statusss = ['Nuevo', 'En proceso', 'Atendido'];
+  levels = ['High', 'Medium', 'Low'];
+  statusss = ['Nuevo', 'En proceso', 'Atendido', 'Archivado'];
 
   private isClicked = false;
 
@@ -67,15 +67,8 @@ export class FormTicketComponent implements OnInit {
 
   async addTicket(uid: string) {
     const createdAt = Timestamp.now();
-    const {
-      title,
-      team,
-      typeError,
-      levelError,
-      softwareVersion,
-      description,
-      incharge,
-    } = this.ticketForm.value;
+    const { title, team, typeError, levelError, softwareVersion, description } =
+      this.ticketForm.value;
 
     const data = {
       id: '',
@@ -88,14 +81,13 @@ export class FormTicketComponent implements OnInit {
       createdAt: createdAt,
       status: StatusT.newt,
       description,
-      incharge,
     };
     try {
       await this.ts.addTicket(data);
       this.dialogRef.close();
-      this.snackBar.open(`Agrerado con exito`, 'Close', {
-        duration: 4000,
-      });
+      // this.snackBar.open(`Agrerado con exito`, 'Close', {
+      //   duration: 4000,
+      // });
       // }
     } catch (error: any) {
       this.snackBar.open(`${error.message} error al agregar`, 'Close', {
@@ -112,7 +104,6 @@ export class FormTicketComponent implements OnInit {
       levelError,
       softwareVersion,
       description,
-      incharge,
       status,
     } = this.ticketForm.value;
 
@@ -124,14 +115,13 @@ export class FormTicketComponent implements OnInit {
       status,
       team,
       description,
-      incharge,
     };
 
     try {
       this.ts.updateTicket(this.data.ticketId, data);
-      this.snackBar.open(`modificado exitosamente`, 'Close', {
-        duration: 4000,
-      });
+      // this.snackBar.open(`modificado exitosamente`, 'Close', {
+      //   duration: 4000,
+      // });
       this.dialogRef.close();
     } catch (error: any) {
       this.snackBar.open(`${error.message} erro al modificar`, 'Close', {

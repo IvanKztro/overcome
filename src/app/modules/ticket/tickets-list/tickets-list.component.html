@@ -15,29 +15,38 @@
                 <div class="flex font-bold text-md mb-2">
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
-                        <span *ngIf="ticket.typeError == 'Bug'"
-                            class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
+                        <span 
+                            class=" bg-gray-500 rounded-full px-2 py-1 text-sm font-semibold mr-2 text-white">
                             {{ticket.typeError}}
                         </span>
-                        <span *ngIf="ticket.typeError == 'Feature'"
+
+                        <span *ngIf="ticket.levelError === 'High'" class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
+                            {{ticket.levelError}}
+                        </span>
+                        <span *ngIf="ticket.levelError === 'Medium'"
                             class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
-                            {{ticket.typeError}}
+                            {{ticket.levelError}}
                         </span>
+                        <span *ngIf="ticket.levelError === 'Low'" class=" bg-green-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.levelError}}
+                        </span>
+    
                     </div>
                 </div>
                  <p class="text-gray-700 text-base">
                    {{ticket.description}}
                 </p> 
-                <p class="text-gray-700 text-base">
+                <!-- <p class="text-gray-700 text-base">
                     Equipo: {{ticket.team}}
-                </p>
+                </p> -->
+
+                <!-- <span class="text-gray-700 text-sm">
+                    creador: {{ticket?.creator?.displayName}}
+                </span><br> -->
 
                 <span class="text-gray-700 text-sm">
-                    creador: {{ticket?.creator?.displayName}}
-                </span><br>
-
-                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
-                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
+                    Responsable: {{ticket?.team ? ticket?.team : 'none'}}
                 </span>
                 
             </div>
@@ -55,29 +64,39 @@
                 <div class="flex font-bold text-md mb-2">
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
-                        <span *ngIf="ticket.typeError == 'Bug'"
+                        <span class=" bg-gray-500 rounded-full px-2 py-1 text-sm font-semibold mr-2 text-white">
+                            {{ticket.typeError}}
+                        </span>
+                    
+                        <span *ngIf="ticket.levelError === 'High'"
                             class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
-                            {{ticket.typeError}}
+                            {{ticket.levelError}}
                         </span>
-                        <span *ngIf="ticket.typeError == 'Feature'"
+                        <span *ngIf="ticket.levelError === 'Medium'"
                             class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
-                            {{ticket.typeError}}
+                            {{ticket.levelError}}
                         </span>
+                        <span *ngIf="ticket.levelError === 'Low'"
+                            class=" bg-green-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.levelError}}
+                        </span>
+                    
                     </div>
                 </div>
                 <p class="text-gray-700 text-base">
                     {{ticket.description}}
                 </p>
-                <p class="text-gray-700 text-base">
-                    Equipo: {{ticket.team}}
-                </p>
-    
+                <!-- <p class="text-gray-700 text-base">
+                                    Equipo: {{ticket.team}}
+                                </p> -->
+                
+                <!-- <span class="text-gray-700 text-sm">
+                                    creador: {{ticket?.creator?.displayName}}
+                                </span><br> -->
+                
                 <span class="text-gray-700 text-sm">
-                    creador: {{ticket?.creator?.displayName}}
-                </span><br>
-    
-                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
-                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
+                    Responsable: {{ticket?.team ? ticket?.team : 'none'}}
                 </span>
     
             </div>
@@ -94,29 +113,39 @@
                 <div class="flex font-bold text-md mb-2">
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
-                        <span *ngIf="ticket.typeError == 'Bug'"
+                        <span class=" bg-gray-500 rounded-full px-2 py-1 text-sm font-semibold mr-2 text-white">
+                            {{ticket.typeError}}
+                        </span>
+                    
+                        <span *ngIf="ticket.levelError === 'High'"
                             class=" bg-red-400 rounded-full px-2 py-1 text-sm font-semibold text-white ">
-                            {{ticket.typeError}}
+                            {{ticket.levelError}}
                         </span>
-                        <span *ngIf="ticket.typeError == 'Feature'"
+                        <span *ngIf="ticket.levelError === 'Medium'"
                             class=" bg-blue-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
-                            {{ticket.typeError}}
+                            {{ticket.levelError}}
                         </span>
+                        <span *ngIf="ticket.levelError === 'Low'"
+                            class=" bg-green-400 rounded-full px-2 py-1 text-sm font-semibold text-white">
+                            {{ticket.levelError}}
+                        </span>
+                    
                     </div>
                 </div>
                 <p class="text-gray-700 text-base">
                     {{ticket.description}}
                 </p>
-                <p class="text-gray-700 text-base">
-                    Equipo: {{ticket.team}}
-                </p>
-    
+                <!-- <p class="text-gray-700 text-base">
+                                    Equipo: {{ticket.team}}
+                                </p> -->
+                
+                <!-- <span class="text-gray-700 text-sm">
+                                    creador: {{ticket?.creator?.displayName}}
+                                </span><br> -->
+                
                 <span class="text-gray-700 text-sm">
-                    creador: {{ticket?.creator?.displayName}}
-                </span><br>
-    
-                <span class="text-gray-700 text-sm" *ngIf="ticket?.manager?.displayName">
-                    responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}}
+                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
+                    Responsable: {{ticket?.team ? ticket?.team : 'none'}}
                 </span>
     
             </div>
