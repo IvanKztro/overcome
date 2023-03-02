@@ -25,6 +25,8 @@ export class TicketsListComponent implements OnInit {
   ticketsprocess?: any[] = [];
   ticketscomplets?: any[] = [];
 
+  show: boolean = false;
+
   constructor(
     private ticketsService: TicketsService,
     private fb: FormBuilder,
@@ -126,5 +128,9 @@ export class TicketsListComponent implements OnInit {
       },
       width: '440px',
     });
+  }
+
+  showTicket() {
+    this.show = !this.show;
   }
 }
