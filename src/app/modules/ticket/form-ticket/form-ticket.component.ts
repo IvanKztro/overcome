@@ -24,6 +24,9 @@ export class FormTicketComponent implements OnInit {
 
   private isClicked = false;
 
+  textbutton: string = 'Editar';
+  iseditable: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -128,5 +131,9 @@ export class FormTicketComponent implements OnInit {
         duration: 4000,
       });
     }
+  }
+
+  changeStatusButton() {
+    this.textbutton = this.iseditable ? 'Visualizar' : 'Editar';
   }
 }

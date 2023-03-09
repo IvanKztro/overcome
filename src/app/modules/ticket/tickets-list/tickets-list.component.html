@@ -4,14 +4,18 @@
         Crear Ticket
     </button>
 </div>
-<div class="flex gap-4 mx-3 mt-5 w-full">
+<div class="flex gap-6 mx-2 mt-5 w-full bg-gray-100 h-[100%]" cdkDropListGroup>
+
+    <!-- <div cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
+        <div class="example-container px-2 py-3 shadow-lg rounded-lg mt-3" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    </div> -->
 
 
-    <section class="w-4/12"  >
+    <section class="w-4/12  px-3 py-5" id="Nuevo" cdkDropList [cdkDropListData]="ticketsnews" (cdkDropListDropped)="drop($event)">
         <h3 class="text-center">Nuevo</h3>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketsnews">
+        <!-- <div  class=" "> -->
     
-            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200 mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="editTicket(ticket)" *ngFor="let ticket of ticketsnews" cdkDrag >
                 <div class="flex font-bold text-md mb-2">
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
@@ -33,37 +37,26 @@
     
                     </div>
                 </div>
-                <small *ngIf="ticket.createdAt">
-                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small>
-                 <p class="text-gray-700 text-base">
-                   {{ticket.description}}
-                </p> 
-                <!-- <p class="text-gray-700 text-base">
-                    Equipo: {{ticket.team}}
-                </p> -->
-
-                <!-- <span class="text-gray-700 text-sm">
-                    creador: {{ticket?.creator?.displayName}}
-                </span><br> -->
-
                 <span class="text-gray-700 text-sm">
                     <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
                     Responsable: {{ticket?.team ? ticket?.team : 'none'}}
-                </span>
+                </span><br>
+                <small *ngIf="ticket.createdAt">
+                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                </small>
                 
             </div>
             
-        </div>
+        <!-- </div> -->
     
     </section>
 
 
-    <section class="w-4/12">
+    <section class="w-4/12 px-3 py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
         <h3 class="text-center">En proceso</h3>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketsprocess">
+        <!-- <div > -->
     
-            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200 mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="editTicket(ticket)"  *ngFor="let ticket of ticketsprocess" cdkDrag>
                 <div class="flex font-bold text-md mb-2">
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
@@ -86,37 +79,27 @@
                     
                     </div>
                 </div>
-                <small *ngIf="ticket.createdAt">
-                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small>
-                <p class="text-gray-700 text-base">
-                    {{ticket.description}}
-                </p>
-                <!-- <p class="text-gray-700 text-base">
-                                    Equipo: {{ticket.team}}
-                                </p> -->
-                
-                <!-- <span class="text-gray-700 text-sm">
-                                    creador: {{ticket?.creator?.displayName}}
-                                </span><br> -->
-                
                 <span class="text-gray-700 text-sm">
                     <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
                     Responsable: {{ticket?.team ? ticket?.team : 'none'}}
-                </span>
+                </span><br>
+                <small *ngIf="ticket.createdAt">
+                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                </small>
     
             </div>
     
-        </div>
+        <!-- </div> -->
     
     </section>
 
-    <section class="w-4/12">
+    <section class="w-4/12 px-3 py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
         <h3 class="text-center">Completado</h3>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg  mb-4 " *ngFor="let ticket of ticketscomplets">
+        <!-- <div> -->
     
-            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200" (click)="editTicket(ticket)">
+            <div class="px-6 py-4 hover:cursor-poniter hover:bg-gray-200 mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="editTicket(ticket)"  *ngFor="let ticket of ticketscomplets" cdkDrag>
                 <div class="flex font-bold text-md mb-2">
+
                     <div>{{ticket.title}}</div>
                     <div class="px-2 ">
                         <span class=" bg-gray-500 rounded-full px-2 py-1 text-sm font-semibold mr-2 text-white">
@@ -138,33 +121,24 @@
                     
                     </div>
                 </div>
-
-                <small *ngIf="ticket.createdAt">
-                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small>
-                   
-                    <p class="text-gray-700 text-base" >
-                        {{ticket.description}}
-                    </p>
-                <!-- <p class="text-gray-700 text-base">
-                                    Equipo: {{ticket.team}}
-                                </p> -->
                 
-                <!-- <span class="text-gray-700 text-sm">
-                                    creador: {{ticket?.creator?.displayName}}
-                                </span><br> -->
+            
                 
                 <span class="text-gray-700 text-sm">
                     <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
                     Responsable: {{ticket?.team ? ticket?.team : 'none'}}
-                </span>
+                </span><br>
+                <small *ngIf="ticket.createdAt">
+                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                </small>
     
             </div>
     
-        </div>
+        <!-- </div> -->
     
     </section>
     
     
-
+    
+    
 </div> 

@@ -7,6 +7,11 @@ import { TicketsService } from 'src/app/shared/services/tickets.service';
 import { Ticket } from './../../../shared/types/ticket';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tickets-list',
@@ -132,5 +137,29 @@ export class TicketsListComponent implements OnInit {
 
   showTicket() {
     this.show = !this.show;
+  }
+
+  drop(event: CdkDragDrop<any[] | any>) {
+    const itemdrop = event.previousContainer.data[event.previousIndex];
+
+    itemdrop.status = event.container.id;
+    this.ticketsService.updateTicket(itemdrop.id, itemdrop);
+
+    if (event) {
+      if (event.previousContainer === event.container) {
+        moveItemInArray(
+          event?.container?.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      } else {
+        transferArrayItem(
+          event?.previousContainer?.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      }
+    }
   }
 }
