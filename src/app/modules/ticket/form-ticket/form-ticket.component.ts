@@ -41,13 +41,15 @@ export class FormTicketComponent implements OnInit {
       typeAction: string;
       labelButton: string;
       ticketId: string;
+      incharge: string;
     }
   ) {
     this.ticketForm = data.ticketForm;
     this.us.getUsers();
 
-    console.log('data.typeAction');
-    console.log(data.typeAction);
+    // console.log('data.typeAction');
+    // console.log(data.typeAction);
+    // console.log(data.incharge);
   }
 
   ngOnInit(): void {}

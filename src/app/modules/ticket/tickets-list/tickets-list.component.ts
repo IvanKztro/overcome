@@ -134,6 +134,7 @@ export class TicketsListComponent implements OnInit {
         ticketForm: this.ticketForm,
         labelButton: 'Guardar',
         ticketId: ticket.id,
+        incharge: ticket.inchargeObj ? ticket.inchargeObj.displayName : 'None',
       },
       width: '700px',
     });
