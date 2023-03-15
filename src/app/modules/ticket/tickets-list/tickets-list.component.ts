@@ -1,3 +1,4 @@
+import { UserProfile } from 'src/app/shared/types/user';
 import { StatusT } from 'src/app/shared/types/ticket';
 import { FormTicketComponent } from './../form-ticket/form-ticket.component';
 import { Subscription } from 'rxjs';
@@ -19,16 +20,16 @@ import {
   styleUrls: ['./tickets-list.component.css'],
 })
 export class TicketsListComponent implements OnInit {
-  tickets?: any[];
+  tickets?: Ticket[];
   filter: string = '';
   alltickets?: Ticket[];
   subscriptionTickets?: Subscription;
   ticketForm!: FormGroup;
-  currentUser!: any;
+  currentUser!: UserProfile | null;
 
-  ticketsnews?: any[] = [];
-  ticketsprocess?: any[] = [];
-  ticketscomplets?: any[] = [];
+  ticketsnews?: Ticket[] = [];
+  ticketsprocess?: Ticket[] = [];
+  ticketscomplets?: Ticket[] = [];
 
   show: boolean = false;
 
@@ -45,6 +46,7 @@ export class TicketsListComponent implements OnInit {
       levelError: ['', [Validators.required]],
       softwareVersion: [''],
       status: [''],
+      incharge: [''],
     });
   }
 
@@ -97,6 +99,7 @@ export class TicketsListComponent implements OnInit {
       softwareVersion: [''],
       status: [''],
       description: ['', [Validators.required]],
+      incharge: [''],
     });
 
     this.dialog.open(FormTicketComponent, {
@@ -107,7 +110,32 @@ export class TicketsListComponent implements OnInit {
         labelButton: 'Crear',
         ticketId: '',
       },
-      width: '440px',
+      width: '700px',
+    });
+  }
+
+  viewTicket(ticket: Ticket) {
+    this.ticketForm = this.fb.group({
+      title: [ticket.title],
+      // sizes: [''],
+      team: [ticket.team],
+      typeError: [ticket.typeError],
+      levelError: [ticket.levelError],
+      softwareVersion: [ticket.softwareVersion],
+      status: [ticket.status ? ticket.status : ''],
+      description: [ticket.description],
+      incharge: [ticket.incharge],
+    });
+
+    this.dialog.open(FormTicketComponent, {
+      data: {
+        title: ticket.title,
+        typeAction: 'Edit',
+        ticketForm: this.ticketForm,
+        labelButton: 'Guardar',
+        ticketId: ticket.id,
+      },
+      width: '700px',
     });
   }
 
@@ -121,6 +149,7 @@ export class TicketsListComponent implements OnInit {
       softwareVersion: [ticket.softwareVersion],
       status: [ticket.status ? ticket.status : ''],
       description: [ticket.description],
+      incharge: [ticket.incharge],
     });
 
     this.dialog.open(FormTicketComponent, {
@@ -131,7 +160,7 @@ export class TicketsListComponent implements OnInit {
         labelButton: 'Guardar',
         ticketId: ticket.id,
       },
-      width: '440px',
+      width: '700px',
     });
   }
 

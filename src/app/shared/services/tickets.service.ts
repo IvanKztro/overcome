@@ -21,13 +21,13 @@ import { combineLatestAll, map, Observable, combineLatest } from 'rxjs';
 export class TicketsService {
   tickets$?: Observable<Ticket[] | null>;
   users$?: Observable<UserProfile[] | null>;
-  ticketsuser$?: Observable<any[] | null>;
+  ticketsuser$?: Observable<Ticket[] | null>;
   ticketsAll?: Ticket[] | null;
   ticket$?: Observable<Ticket | null>;
   urlTicket = '';
   constructor(private firestore: Firestore, private auth: AuthService) {}
 
-  getTickets(userP: any) {
+  getTickets(userP: UserProfile) {
     const refUser = query(collection(this.firestore, 'users'));
 
     this.users$ = collectionData(refUser) as Observable<UserProfile[]>;
@@ -40,6 +40,7 @@ export class TicketsService {
         return tickets?.map((ticket) => ({
           ...ticket,
           creator: users?.find((user) => user.uid === ticket.createdBy),
+          inchargeObj: users?.find((user) => user.uid === ticket.incharge),
         }));
       })
     );

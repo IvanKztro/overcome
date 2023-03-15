@@ -45,6 +45,9 @@ export class FormTicketComponent implements OnInit {
   ) {
     this.ticketForm = data.ticketForm;
     this.us.getUsers();
+
+    console.log('data.typeAction');
+    console.log(data.typeAction);
   }
 
   ngOnInit(): void {}
@@ -70,8 +73,15 @@ export class FormTicketComponent implements OnInit {
 
   async addTicket(uid: string) {
     const createdAt = Timestamp.now();
-    const { title, team, typeError, levelError, softwareVersion, description } =
-      this.ticketForm.value;
+    const {
+      title,
+      team,
+      typeError,
+      levelError,
+      softwareVersion,
+      description,
+      incharge,
+    } = this.ticketForm.value;
 
     const data = {
       id: '',
@@ -84,6 +94,7 @@ export class FormTicketComponent implements OnInit {
       createdAt: createdAt,
       status: StatusT.newt,
       description,
+      incharge,
     };
     try {
       await this.ts.addTicket(data);
@@ -108,6 +119,7 @@ export class FormTicketComponent implements OnInit {
       softwareVersion,
       description,
       status,
+      incharge,
     } = this.ticketForm.value;
 
     const data = {
@@ -118,6 +130,7 @@ export class FormTicketComponent implements OnInit {
       status,
       team,
       description,
+      incharge,
     };
 
     try {
@@ -134,6 +147,7 @@ export class FormTicketComponent implements OnInit {
   }
 
   changeStatusButton() {
-    this.textbutton = this.iseditable ? 'Visualizar' : 'Editar';
+    this.iseditable = !this.iseditable;
+    // this.textbutton = this.iseditable ? 'Visualizar' : 'Editar';
   }
 }

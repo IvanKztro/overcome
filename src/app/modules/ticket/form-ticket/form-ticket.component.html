@@ -1,69 +1,135 @@
-<h2 mat-dialog-title>{{data.title}}</h2>
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+    <!-- <button mat-button mat-dialog-close>X</button> -->
+    <button mat-button (click)="changeStatusButton()"> 
+        <mat-icon>
+            {{ iseditable ? "visibility" : "edit" }}
+        </mat-icon> 
+    </button>
+</div>
 <mat-dialog-content>
 
     <!-- <button mat-button >{{textbutton}}</button> -->
     <!-- <button mat-button color="primary" [disabled]="ticketForm.invalid" (click)="handleTicket()">
         {{data.labelButton}}
     </button> -->
-    
-    <form class="flex flex-col " [formGroup]="ticketForm" >
 
-        <mat-form-field appearance="outline">
-            <mat-label>Estado</mat-label>
-            <mat-select formControlName="status">
-                <mat-option *ngFor="let s of statusss" [value]="s">
-                    {{ s }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-   
-        <mat-form-field appearance="outline">
-            <mat-label>Titulo</mat-label>
-            <input type="text" matInput formControlName="title">
-        </mat-form-field>
+    <section class=" p-2" *ngIf="!iseditable">
 
-
-        <mat-form-field appearance="outline">
-            <mat-label>Equipo</mat-label>
-            <mat-select formControlName="team">
-                <mat-option *ngFor="let t of teams" [value]="t">
-                    {{ t }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <!-- 
         
-        <mat-form-field appearance="outline">
-            <mat-label>Tipo Error</mat-label>
-            <mat-select formControlName="typeError">
-                <mat-option *ngFor="let b of bugs" [value]="b">
-                    {{ b }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            title,
+            status,
+            incharge,
+            typeError,
+            levelError,
+            softwareVersion,
+            description,
+        const {
+        team,
+        } = this.ticketForm.value; -->
 
-        <mat-form-field appearance="outline">
-            <mat-label>Nivel Error</mat-label>
-            <mat-select formControlName="levelError">
-                <mat-option *ngFor="let l of levels" [value]="l">
-                    {{ l }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div> 
+            <span class="text-lg font-bold " >Estado:</span> 
+            <p class="text-lg" > {{ticketForm.value.status}} </p> 
+        </div>
+        <div> 
+            <span class="text-lg font-bold " >Responsable:</span> 
+            <p class="text-lg" >{{ ticketForm.value.inchargeObj?.displayName ? ticketForm.value.inchargeObj?.displayName : 'None' }}</p> 
+        </div>
+        <div> 
+            <span class="text-lg font-bold " >Tipo Error:</span> 
+            <p class="text-lg" > {{ticketForm.value.typeError}} </p> 
+        </div>
+        <div> 
+            <span class="text-lg font-bold " >Nivel Error:</span> 
+            <p class="text-lg" > {{ticketForm.value.levelError}} </p> 
+        </div>
+        <div> 
+            <span class="text-lg font-bold " >Versión:</span> 
+            <p class="text-lg" > {{ticketForm.value.softwareVersion}} </p> 
+        </div>
+        <div> 
+            <span class="text-lg font-bold " >Descripción:</span> 
+            <p class="text-lg" > {{ticketForm.value.description }} </p> 
+        </div>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Versión</mat-label>
-            <input type="text" matInput formControlName="softwareVersion">
-        </mat-form-field>
-        
-        <mat-form-field appearance="outline" >
-            <mat-label>Descripcion</mat-label>
-            <textarea matInput formControlName="description" rows="3"></textarea>
-        </mat-form-field>
 
+    </section>
+
+    <section *ngIf="iseditable">
+
+        <form class="flex flex-col " [formGroup]="ticketForm" >
     
-    </form> 
+            <mat-form-field appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let s of statusss" [value]="s">
+                        {{ s }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+       
+            <mat-form-field appearance="outline">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput formControlName="title">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Responsable</mat-label>
+                <mat-select formControlName="incharge">
+                    <ng-container *ngIf="us.users$ | async as users">
+                        <mat-option *ngFor="let user of users" [value]="user.uid">
+                            {{user.displayName}}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+    
+    
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Equipo</mat-label>
+                <mat-select formControlName="team">
+                    <mat-option *ngFor="let t of teams" [value]="t">
+                        {{ t }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Tipo Error</mat-label>
+                <mat-select formControlName="typeError">
+                    <mat-option *ngFor="let b of bugs" [value]="b">
+                        {{ b }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Nivel Error</mat-label>
+                <mat-select formControlName="levelError">
+                    <mat-option *ngFor="let l of levels" [value]="l">
+                        {{ l }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Versión</mat-label>
+                <input type="text" matInput formControlName="softwareVersion">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" >
+                <mat-label>Descripcion</mat-label>
+                <textarea matInput formControlName="description" rows="3"></textarea>
+            </mat-form-field>
+    
+        
+        </form> 
+    </section>
+    
 </mat-dialog-content>
-<mat-dialog-actions class="flex justify-end">
+<mat-dialog-actions class="flex justify-end" *ngIf="iseditable">
     <button mat-button mat-dialog-close>Cancelar</button>
     <button mat-button color="primary" [disabled]="ticketForm.invalid" (click)="handleTicket()">
         {{data.labelButton}}

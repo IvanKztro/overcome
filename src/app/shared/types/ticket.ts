@@ -1,16 +1,23 @@
+import { UserProfile } from 'src/app/shared/types/user';
 import { Timestamp } from '@firebase/firestore-types';
+
 export interface Ticket {
   id: string;
   ticket_Id?: string;
   title: string;
   createdAt?: Timestamp;
   createdBy: string;
+  incharge?: string;
   team?: Team;
   typeError: TypeError;
   levelError: LevelError;
   softwareVersion?: string;
   description: string;
   status?: StatusT;
+
+  //only read
+  creator?: UserProfile;
+  inchargeObj?: UserProfile;
 }
 
 export enum Team {
