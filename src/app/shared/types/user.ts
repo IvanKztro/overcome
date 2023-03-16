@@ -11,6 +11,8 @@ export interface UserProfile {
   status?: string;
   createdBy?: string;
   createdAt?: Timestamp;
+
+  dragdropInfo?: boolean;
 }
 
 export enum TypeRole {

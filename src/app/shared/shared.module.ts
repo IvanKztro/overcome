@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { FlexLayoutModule } from '@angular/flex-layout';
@@ -9,10 +11,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+
+//components
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, DialogInfoComponent],
   imports: [
     CommonModule,
     // FlexLayoutModule,
@@ -24,6 +29,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatListModule,
     MatRippleModule,
     MatDialogModule,
+    MatCheckboxModule,
+    FormsModule,
   ],
   exports: [NavbarComponent],
 })

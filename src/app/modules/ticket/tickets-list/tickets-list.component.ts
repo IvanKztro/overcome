@@ -1,3 +1,4 @@
+import { DialogInfoComponent } from './../../../shared/components/dialog-info/dialog-info.component';
 import { UserProfile } from 'src/app/shared/types/user';
 import { StatusT } from 'src/app/shared/types/ticket';
 import { FormTicketComponent } from './../form-ticket/form-ticket.component';
@@ -13,6 +14,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+
+// import {DialogInfoComponent}
 
 @Component({
   selector: 'app-tickets-list',
@@ -32,6 +35,7 @@ export class TicketsListComponent implements OnInit {
   ticketscomplets?: Ticket[] = [];
 
   show: boolean = false;
+  first: boolean = false;
 
   constructor(
     private ticketsService: TicketsService,
@@ -78,6 +82,12 @@ export class TicketsListComponent implements OnInit {
                 this.ticketscomplets?.push(ticket);
               }
             });
+
+            //show dialog drag-drop
+          }
+          if (!this.first && !this.currentUser?.dragdropInfo) {
+            this.showDialogDragDrop();
+            this.first = true;
           }
         }
       );
@@ -165,8 +175,17 @@ export class TicketsListComponent implements OnInit {
     });
   }
 
-  showTicket() {
-    this.show = !this.show;
+  showDialogDragDrop() {
+    this.dialog.open(DialogInfoComponent, {
+      data: {
+        title: `Usted puede arrastrar y soltar los Tickets entre las columnas de estados`,
+        typeItem: 'DragDrop',
+        header: 'Información de uso',
+        // id: maintenance.id,
+        // functionDelete: this.deletedItem,
+      },
+      width: '700px',
+    });
   }
 
   drop(event: CdkDragDrop<any[] | any>) {
