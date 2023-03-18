@@ -72,14 +72,18 @@ export class TicketsListComponent implements OnInit {
             this.alltickets = tickets;
             this.ticketsService.ticketsAll = tickets;
             tickets?.map((ticket) => {
+              const position = ticket?.position ? ticket.position : 0;
               if (ticket.status === StatusT.newt) {
-                this.ticketsnews?.push(ticket);
+                // this.ticketsnews?.push(ticket);
+                this.ticketsnews?.splice(position, 0, ticket);
               }
               if (ticket.status === StatusT.proccesst) {
-                this.ticketsprocess?.push(ticket);
+                // this.ticketsprocess?.push(ticket);
+                this.ticketsprocess?.splice(position, 0, ticket);
               }
               if (ticket.status === StatusT.completet) {
-                this.ticketscomplets?.push(ticket);
+                // this.ticketscomplets?.push(ticket);
+                this.ticketscomplets?.splice(position, 0, ticket);
               }
             });
 
@@ -191,9 +195,6 @@ export class TicketsListComponent implements OnInit {
   drop(event: CdkDragDrop<any[] | any>) {
     const itemdrop = event.previousContainer.data[event.previousIndex];
 
-    itemdrop.status = event.container.id;
-    this.ticketsService.updateTicket(itemdrop.id, itemdrop);
-
     if (event) {
       if (event.previousContainer === event.container) {
         moveItemInArray(
@@ -201,6 +202,9 @@ export class TicketsListComponent implements OnInit {
           event.previousIndex,
           event.currentIndex
         );
+        // console.log(event.container?.data);
+        // console.log(event.previousIndex);
+        // console.log(event.currentIndex);
       } else {
         transferArrayItem(
           event?.previousContainer?.data,
@@ -208,7 +212,36 @@ export class TicketsListComponent implements OnInit {
           event.previousIndex,
           event.currentIndex
         );
+        // console.log(event.container?.data);
+        // console.log(event.previousIndex);
+        // console.log(event.currentIndex);
       }
+
+      itemdrop.status = event.container.id;
+      itemdrop.position = event.currentIndex;
+
+      // console.log(event.previousContainer?.data);
+      // console.log(event.container?.data);
+      this.updateTasks(event.container?.data, itemdrop.status);
+      // this.updateTasks(event?.previousContainer?.data, itemdrop.status);
     }
+  }
+
+  updateTasks(currentTasks: Ticket[], status: string) {
+    // let position = 0;
+
+    currentTasks.map((task, index) => {
+      // console.log(task.title);
+      // console.log(index);
+      // console.log(task.position);
+      // if (task.position !== index) {
+      task.position = index;
+      this.ticketsService.updateTicket(task.id, task);
+      // }
+      // task.position = position;
+      // position++;
+    });
+
+    // console.log(currentTasks);
   }
 }

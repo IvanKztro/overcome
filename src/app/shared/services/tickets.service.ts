@@ -32,7 +32,10 @@ export class TicketsService {
 
     this.users$ = collectionData(refUser) as Observable<UserProfile[]>;
 
-    const ref = query(collection(this.firestore, 'tickets'));
+    const ref = query(
+      collection(this.firestore, 'tickets'),
+      orderBy('position', 'asc')
+    );
     this.tickets$ = collectionData(ref) as Observable<Ticket[]>;
 
     const arr$ = combineLatest([this.tickets$, this.users$]).pipe(

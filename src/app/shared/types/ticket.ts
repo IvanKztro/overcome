@@ -14,6 +14,7 @@ export interface Ticket {
   softwareVersion?: string;
   description: string;
   status?: StatusT;
+  position?: number;
 
   //only read
   creator?: UserProfile;
