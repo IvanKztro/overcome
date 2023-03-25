@@ -3,3 +3,35 @@
     justify-content: space-between;
     width: 100%;
 }
+
+.mat-sidenav-container {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+}
+.mat-sidenav-content {
+    height: 100vh;
+    background-color: #eef1f4;
+}
+
+.mat-sidenav {
+    min-width: 240px;
+    background-color: #fff;
+}
+
+.mat-toolbar {
+    background-color: #fff;
+    position: sticky;
+    position: -webkit-sticky;
+    /* For macOS/iOS Safari */
+    top: 0;
+    /* Sets the sticky toolbar to be on top */
+    z-index: 1000;
+
+}
+/* Ensure that your app's content doesn't overlap the toolbar */
+/* .nav-bar {
+    width: 100%;
+} */

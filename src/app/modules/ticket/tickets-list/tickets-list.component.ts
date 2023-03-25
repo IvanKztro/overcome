@@ -1,3 +1,5 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardsService } from './../../../shared/services/boards.service';
 import { DialogInfoComponent } from './../../../shared/components/dialog-info/dialog-info.component';
 import { UserProfile } from 'src/app/shared/types/user';
 import { StatusT } from 'src/app/shared/types/ticket';
@@ -14,6 +16,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { Board } from 'src/app/shared/types/board';
 
 // import {DialogInfoComponent}
 
@@ -27,8 +30,13 @@ export class TicketsListComponent implements OnInit {
   filter: string = '';
   alltickets?: Ticket[];
   subscriptionTickets?: Subscription;
+  subscriptionparams?: Subscription;
+  subscriptionboards?: Subscription;
   ticketForm!: FormGroup;
   currentUser!: UserProfile | null;
+
+  // currentidboard!: string;
+  currentboard!: Board;
 
   ticketsnews?: Ticket[] = [];
   ticketsprocess?: Ticket[] = [];
@@ -41,7 +49,10 @@ export class TicketsListComponent implements OnInit {
     private ticketsService: TicketsService,
     private fb: FormBuilder,
     public auth: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public bs: BoardsService,
+    private routeractived: ActivatedRoute,
+    private router: Router
   ) {
     this.ticketForm = this.fb.group({
       title: ['', [Validators.required]],
@@ -55,51 +66,137 @@ export class TicketsListComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    // this.currentidboard = '';
     this.currentUser = await this.auth.getUser();
+
     if (this.currentUser) {
-      this.ticketsService.getTickets(this.currentUser);
-      this.subscriptionTickets = this.ticketsService.ticketsuser$?.subscribe(
-        (tickets) => {
-          this.tickets = [];
-          this.alltickets = [];
-          this.ticketsService.ticketsAll = [];
-          this.ticketsnews = [];
-          this.ticketsprocess = [];
-          this.ticketscomplets = [];
+      this.routeractived.params.subscribe((params) => {
+        // console.log(params);
+        const { id } = params;
+        console.log(id);
 
-          if (tickets) {
-            this.tickets = tickets;
-            this.alltickets = tickets;
-            this.ticketsService.ticketsAll = tickets;
-            tickets?.map((ticket) => {
-              const position = ticket?.position ? ticket.position : 0;
-              if (ticket.status === StatusT.newt) {
-                // this.ticketsnews?.push(ticket);
-                this.ticketsnews?.splice(position, 0, ticket);
-              }
-              if (ticket.status === StatusT.proccesst) {
-                // this.ticketsprocess?.push(ticket);
-                this.ticketsprocess?.splice(position, 0, ticket);
-              }
-              if (ticket.status === StatusT.completet) {
-                // this.ticketscomplets?.push(ticket);
-                this.ticketscomplets?.splice(position, 0, ticket);
-              }
-            });
-
-            //show dialog drag-drop
-          }
-          if (!this.first && !this.currentUser?.dragdropInfo) {
-            this.showDialogDragDrop();
-            this.first = true;
-          }
+        if (id === '0')
+          this.getBoardID(this.currentUser?.uid ? this.currentUser.uid : '');
+        else {
+          this.bs.getBoardById(id);
+          this.bs.board$?.subscribe((board) => {
+            if (board) {
+              // console.log('board');
+              // console.log(board);
+              this.currentboard = board;
+              // console.log(
+              //   'SIDEBAR: boardselected after selectedddddddddd- ',
+              //   board
+              // );
+              this.getObservableTickets(
+                this.currentUser ? this.currentUser : null,
+                this.currentboard.id
+              );
+            }
+          });
         }
-      );
+      });
     }
   }
   ngOnDestroy(): void {
-    if (this.subscriptionTickets) {
-      this.subscriptionTickets.unsubscribe();
+    this.destroySubscription(this.subscriptionTickets as Subscription);
+    this.destroySubscription(this.subscriptionboards as Subscription);
+    this.destroySubscription(this.subscriptionparams as Subscription);
+
+    // if (this.subscriptionTickets) {
+    //   this.subscriptionTickets.unsubscribe();
+    // }
+
+    // if (this.subscriptionboards) {
+    //   this.subscriptionboards.unsubscribe();
+    // }
+
+    // if (this.subscriptionparams) {
+    //   this.subscriptionparams.unsubscribe();
+    // }
+  }
+
+  getObservableTickets(
+    currentUser: UserProfile | null,
+    idcurrentboard: string
+  ) {
+    this.ticketsService.getTicketsByBoard(currentUser, idcurrentboard);
+
+    // console.log(this.subscriptionTickets);
+    this.destroySubscription(this.subscriptionTickets as Subscription);
+    // if (this.subscriptionTickets) {
+    //   this.subscriptionTickets.unsubscribe();
+    // }
+    this.subscriptionTickets = this.ticketsService.ticketsuser$?.subscribe(
+      (tickets) => {
+        console.log(tickets);
+        this.tickets = [];
+        this.alltickets = [];
+        this.ticketsService.ticketsAll = [];
+        this.ticketsnews = [];
+        this.ticketsprocess = [];
+        this.ticketscomplets = [];
+
+        if (tickets) {
+          this.tickets = tickets;
+          this.alltickets = tickets;
+          this.ticketsService.ticketsAll = tickets;
+          tickets?.map((ticket) => {
+            const position = ticket?.position ? ticket.position : 0;
+            if (ticket.status === StatusT.newt) {
+              // this.ticketsnews?.push(ticket);
+              this.ticketsnews?.splice(position, 0, ticket);
+            }
+            if (ticket.status === StatusT.proccesst) {
+              // this.ticketsprocess?.push(ticket);
+              this.ticketsprocess?.splice(position, 0, ticket);
+            }
+            if (ticket.status === StatusT.completet) {
+              // this.ticketscomplets?.push(ticket);
+              this.ticketscomplets?.splice(position, 0, ticket);
+            }
+          });
+
+          //show dialog drag-drop
+        }
+        if (!this.first && !this.currentUser?.dragdropInfo) {
+          this.showDialogDragDrop();
+          this.first = true;
+        }
+      }
+    );
+  }
+
+  getBoardID(userid: string) {
+    // if (this.subscriptionboards) {
+    //   this.subscriptionboards.unsubscribe();
+    // }
+    this.destroySubscription(this.subscriptionboards as Subscription);
+
+    this.bs.getBoards(userid);
+
+    this.subscriptionboards = this.bs.boards$?.subscribe((boards) => {
+      if (boards) {
+        console.log(boards);
+        console.log(this.currentboard);
+        // if (boards[0]?.id !== this.currentboard.id) {
+        const boardId = boards[0]?.id;
+        this.currentboard = boards[0];
+        this.router.navigate(['boards', boardId]);
+        // }
+
+        // this.bs.boardidselected = boards[0];
+        // console.log('SIDEBAR: boardselected - ', this.bs.boardidselected);
+        // this.subscriptionparams = this.routeractived.params.subscribe((p) => {
+        //   console.log('PARAMS: ', p);
+        // });
+      }
+    });
+  }
+
+  destroySubscription(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
     }
   }
 
@@ -123,6 +220,7 @@ export class TicketsListComponent implements OnInit {
         ticketForm: this.ticketForm,
         labelButton: 'Crear',
         ticketId: '',
+        boardId: this.currentboard.id,
       },
       width: '700px',
     });
@@ -149,6 +247,7 @@ export class TicketsListComponent implements OnInit {
         labelButton: 'Guardar',
         ticketId: ticket.id,
         incharge: ticket.inchargeObj ? ticket.inchargeObj.displayName : 'None',
+        boardId: this.currentboard.id,
       },
       width: '700px',
     });
@@ -174,6 +273,7 @@ export class TicketsListComponent implements OnInit {
         ticketForm: this.ticketForm,
         labelButton: 'Guardar',
         ticketId: ticket.id,
+        boardId: this.currentboard.id,
       },
       width: '700px',
     });
@@ -236,7 +336,7 @@ export class TicketsListComponent implements OnInit {
       // console.log(task.position);
       // if (task.position !== index) {
       task.position = index;
-      this.ticketsService.updateTicket(task.id, task);
+      this.ticketsService.updateTicket(task.id, task, this.currentboard.id);
       // }
       // task.position = position;
       // position++;

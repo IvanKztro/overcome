@@ -22,11 +22,19 @@ import { UserProfile } from '../types/user';
 })
 export class UsersService {
   users$?: Observable<UserProfile[] | null>;
+  userswithoutlogged$?: Observable<UserProfile[] | null>;
   constructor(private firestore: Firestore, private auth: AuthService) {}
 
   getUsers() {
     const ref = query(collection(this.firestore, 'users'));
     this.users$ = collectionData(ref) as Observable<UserProfile[]>;
+  }
+  getUsersWithOutCurrentUser(uid: string) {
+    const ref = query(
+      collection(this.firestore, 'users'),
+      where('uid', '!=', uid)
+    );
+    this.userswithoutlogged$ = collectionData(ref) as Observable<UserProfile[]>;
   }
 
   async updateUser(userId: string, updates: Partial<UserProfile>) {

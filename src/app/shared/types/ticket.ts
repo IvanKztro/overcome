@@ -15,6 +15,7 @@ export interface Ticket {
   description: string;
   status?: StatusT;
   position?: number;
+  boardId: string;
 
   //only read
   creator?: UserProfile;

@@ -42,10 +42,12 @@ export class FormTicketComponent implements OnInit {
       labelButton: string;
       ticketId: string;
       incharge: string;
+      boardId: string;
     }
   ) {
     this.ticketForm = data.ticketForm;
     this.us.getUsers();
+    this.iseditable = data.typeAction === 'Create' ? true : false;
 
     // console.log('data.typeAction');
     // console.log(data.typeAction);
@@ -97,9 +99,10 @@ export class FormTicketComponent implements OnInit {
       status: StatusT.newt,
       description,
       incharge,
+      boardId: this.data.boardId,
     };
     try {
-      await this.ts.addTicket(data);
+      await this.ts.addTicket(data, this.data.boardId);
       this.dialogRef.close();
       // this.snackBar.open(`Agrerado con exito`, 'Close', {
       //   duration: 4000,
@@ -136,7 +139,7 @@ export class FormTicketComponent implements OnInit {
     };
 
     try {
-      this.ts.updateTicket(this.data.ticketId, data);
+      this.ts.updateTicket(this.data.ticketId, data, this.data.boardId);
       // this.snackBar.open(`modificado exitosamente`, 'Close', {
       //   duration: 4000,
       // });

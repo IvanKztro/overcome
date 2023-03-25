@@ -1,0 +1,35 @@
+<div class="flex justify-between items-center">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+</div>
+<mat-dialog-content>
+
+    <section >
+
+        <form class="flex flex-col " [formGroup]="boardForm">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput formControlName="title">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Miembros</mat-label>
+                <mat-select [formControl]="members" [(value)]="selectedmembers" multiple>
+                    <!-- <ng-container *ngIf="us.users$ | async as users"> -->
+                    <ng-container >
+                        <mat-option *ngFor="let user of userswithoutme" [value]="user.uid">{{user.displayName}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>          
+
+        </form>
+
+    </section>
+
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end" >
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button color="primary" [disabled]="boardForm.invalid" (click)="handleBoard()">
+        {{data.labelButton}}
+    </button>
+</mat-dialog-actions>

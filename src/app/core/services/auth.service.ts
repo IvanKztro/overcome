@@ -64,7 +64,7 @@ export class AuthService {
       );
       const user = userCredential.user;
       await this.updateUser(user);
-      await this.router.navigate(['/tickets']);
+      await this.router.navigate(['/boards/0']);
     } catch (error: any) {
       const errorMessage = error.message;
     }
@@ -92,7 +92,7 @@ export class AuthService {
         displayName: displayName,
       });
       await this.updateUser(user);
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/boards/0']);
     } catch (error: any) {
       console.log(error);
       const errorMessage = error.message;

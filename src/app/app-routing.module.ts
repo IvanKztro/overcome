@@ -11,12 +11,16 @@ import {
 const redirectUnauthorizedToSignIn = () =>
   redirectUnauthorizedTo(['auth/login']);
 
-const redirectLoggedInToHome = () => redirectLoggedInTo(['/tickets']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['/boards/0/ticket/0']);
 
 // import {}
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tickets', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: 'boards/0',
+    pathMatch: 'full',
+  },
   {
     path: 'auth',
     loadChildren: () =>
@@ -41,16 +45,16 @@ const routes: Routes = [
   //   data: { authGuardPipe: redirectUnauthorizedToSignIn },
   // },
   {
-    path: 'tickets',
+    path: 'boards/:id',
     loadChildren: () =>
       import('./modules/ticket/ticket.module').then((m) => m.TicketModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToSignIn },
   },
   // {
-  //   path: 'offices',
+  //   path: 'boards/:boardId',
   //   loadChildren: () =>
-  //     import('./modules/offices/offices.module').then((m) => m.OfficesModule),
+  //     import('./modules/board/board.module').then((m) => m.BoardModule),
   //   data: { authGuardPipe: redirectUnauthorizedToSignIn },
   // },
   // {
