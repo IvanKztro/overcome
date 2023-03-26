@@ -10,7 +10,7 @@
   <!-- SIDEBAR -->
  
   <mat-sidenav-content>
-    <mat-toolbar class="elevation-02">
+    <mat-toolbar *ngIf="opened" class="elevation-02">
     <button class="btn_menu" mat-icon-button (click)="sidenav.toggle()" fxShow.sm="true" fxShow.xs="true" fxShow="false">
       <mat-icon>menu</mat-icon>
     </button>

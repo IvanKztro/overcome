@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
     this.visibility = false;
     this.signForm = this.fb.group({
       displayName: [''],
-      email: ['ejemplo@gmail.com', [Validators.required, Validators.email]],
-      password: ['123123', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
       rememberUser: false,
     });
   }
