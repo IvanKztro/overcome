@@ -31,7 +31,55 @@
     z-index: 1000;
 
 }
+
+.btn_menu {
+    display: none;
+}
 /* Ensure that your app's content doesn't overlap the toolbar */
 /* .nav-bar {
     width: 100%;
 } */
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .sidebar_static{
+        display: none;
+
+    }
+    .sidebar_modal{
+        display: block;
+    }
+    .btn_menu{
+        display: block;
+    }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* ... */
+    .sidebar_static{
+        display: none;
+
+    }
+    .sidebar_modal{
+        display: block;
+    }
+    .btn_menu{
+        display: block;
+    }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .sidebar_static{
+        display: none;
+
+    }
+    .sidebar_modal{
+        display: block;
+    }
+    .btn_menu{
+        display: block;
+    }
+}
+

@@ -57,10 +57,10 @@ export class TicketsService {
     // let array: any = [];
     const refUser = query(collection(this.firestore, 'users'));
     this.users$ = collectionData(refUser) as Observable<UserProfile[]>;
-    console.log('userP.uid');
-    console.log(userP?.uid);
-    console.log('boardId');
-    console.log(boardId);
+    // console.log('userP.uid');
+    // console.log(userP?.uid);
+    // console.log('boardId');
+    // console.log(boardId);
     try {
       const ref = query(
         collectionGroup(this.firestore, 'ticketsArray'),

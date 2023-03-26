@@ -17,6 +17,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Board } from 'src/app/shared/types/board';
+import { FormBoardComponent } from 'src/app/shared/components/form-board/form-board.component';
 
 // import {DialogInfoComponent}
 
@@ -33,9 +34,11 @@ export class TicketsListComponent implements OnInit {
   subscriptionparams?: Subscription;
   subscriptionboards?: Subscription;
   ticketForm!: FormGroup;
+  boardForm!: FormGroup;
+
   currentUser!: UserProfile | null;
 
-  // currentidboard!: string;
+  noProjects: string = '';
   currentboard!: Board;
 
   ticketsnews?: Ticket[] = [];
@@ -63,6 +66,10 @@ export class TicketsListComponent implements OnInit {
       status: [''],
       incharge: [''],
     });
+
+    this.boardForm = this.fb.group({
+      title: ['', [Validators.required]],
+    });
   }
 
   async ngOnInit(): Promise<void> {
@@ -73,14 +80,16 @@ export class TicketsListComponent implements OnInit {
       this.routeractived.params.subscribe((params) => {
         // console.log(params);
         const { id } = params;
-        console.log(id);
+        // console.log(id);
+        const uid = this.currentUser?.uid ? this.currentUser.uid : '';
 
-        if (id === '0')
-          this.getBoardID(this.currentUser?.uid ? this.currentUser.uid : '');
-        else {
+        if (id === '0') this.getBoardID(uid);
+        else if (id === 'none') {
+          this.noProjects = 'NO se han creado proyectos ';
+        } else {
           this.bs.getBoardById(id);
           this.bs.board$?.subscribe((board) => {
-            if (board) {
+            if (board && board.team?.includes(uid)) {
               // console.log('board');
               // console.log(board);
               this.currentboard = board;
@@ -129,7 +138,7 @@ export class TicketsListComponent implements OnInit {
     // }
     this.subscriptionTickets = this.ticketsService.ticketsuser$?.subscribe(
       (tickets) => {
-        console.log(tickets);
+        // console.log(tickets);
         this.tickets = [];
         this.alltickets = [];
         this.ticketsService.ticketsAll = [];
@@ -177,12 +186,16 @@ export class TicketsListComponent implements OnInit {
 
     this.subscriptionboards = this.bs.boards$?.subscribe((boards) => {
       if (boards) {
-        console.log(boards);
-        console.log(this.currentboard);
+        // console.log(boards);
+        // console.log(this.currentboard);
         // if (boards[0]?.id !== this.currentboard.id) {
-        const boardId = boards[0]?.id;
-        this.currentboard = boards[0];
-        this.router.navigate(['boards', boardId]);
+        if (boards.length !== 0) {
+          const boardId = boards[0]?.id;
+          this.currentboard = boards[0];
+          this.router.navigate(['boards', boardId]);
+        } else {
+          this.router.navigate(['boards', 'none']);
+        }
         // }
 
         // this.bs.boardidselected = boards[0];
@@ -292,6 +305,27 @@ export class TicketsListComponent implements OnInit {
     });
   }
 
+  openDialogEditBoard(board: Board) {
+    const { title, team } = board;
+    // console.log(board);
+    this.boardForm = this.fb.group({
+      title: [title],
+      team: [team],
+    });
+    this.dialog.open(FormBoardComponent, {
+      data: {
+        title: `Editar Proyecto`,
+        header: 'Proyecto',
+        boardForm: this.boardForm,
+        labelButton: 'Guardar',
+        typeAction: 'Edit',
+        team,
+        boardId: this.currentboard.id,
+      },
+      width: '440px',
+    });
+  }
+
   drop(event: CdkDragDrop<any[] | any>) {
     const itemdrop = event.previousContainer.data[event.previousIndex];
 
@@ -336,7 +370,11 @@ export class TicketsListComponent implements OnInit {
       // console.log(task.position);
       // if (task.position !== index) {
       task.position = index;
-      this.ticketsService.updateTicket(task.id, task, this.currentboard.id);
+      const update = {
+        position: task?.position ? task?.position : 0,
+        status: task.status,
+      };
+      this.ticketsService.updateTicket(task.id, update, this.currentboard.id);
       // }
       // task.position = position;
       // position++;

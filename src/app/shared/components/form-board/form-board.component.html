@@ -14,11 +14,16 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Miembros</mat-label>
-                <mat-select [formControl]="members" [(value)]="selectedmembers" multiple>
-                    <!-- <ng-container *ngIf="us.users$ | async as users"> -->
+                <!-- <mat-select  [(ngModel)]="selectedmembers" name="team"  multiple> -->
+                <!-- <mat-select [formControl]="members" [(value)]="selectedmembers" multiple>
                     <ng-container >
                         <mat-option *ngFor="let user of userswithoutme" [value]="user.uid">{{user.displayName}}</mat-option>
                     </ng-container>
+                </mat-select> -->
+                <mat-select [formControl]="members" placeholder="Equipo" multiple>
+                    <mat-option *ngFor="let user of userswithoutme" [value]="user.uid">
+                        {{user.displayName}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>          
 

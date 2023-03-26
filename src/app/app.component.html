@@ -1,17 +1,17 @@
 <mat-sidenav-container>
 
   <!-- SIDEBAR -->
-  <mat-sidenav [opened]="opened" mode="side" fxShow.sm="false" fxShow.xs="false">
+  <mat-sidenav class="sidebar_static" [opened]="opened" mode="side" fxShow.sm="false" fxShow.xs="false">
     <app-side-bar></app-side-bar>
   </mat-sidenav>
-  <mat-sidenav #sidenav fxShow.sm="true" fxShow.xs="true" fxShow="false" position="end">
+  <mat-sidenav class="sidebar_modal " #sidenav fxShow.sm="true" fxShow.xs="true" fxShow="false" position="end">
     <app-side-bar></app-side-bar>
   </mat-sidenav>
   <!-- SIDEBAR -->
  
   <mat-sidenav-content>
     <mat-toolbar class="elevation-02">
-    <button mat-icon-button (click)="sidenav.toggle()" fxShow.sm="true" fxShow.xs="true" fxShow="false">
+    <button class="btn_menu" mat-icon-button (click)="sidenav.toggle()" fxShow.sm="true" fxShow.xs="true" fxShow="false">
       <mat-icon>menu</mat-icon>
     </button>
       <app-navbar class="nav-bar" ></app-navbar>

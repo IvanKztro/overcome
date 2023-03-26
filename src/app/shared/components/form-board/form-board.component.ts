@@ -24,8 +24,8 @@ export class FormBoardComponent implements OnInit {
   currentUser!: UserProfile | null;
 
   private isClicked = false;
-  members = new FormControl('');
-  selectedmembers: string[] = [];
+  members = new FormControl([]);
+  // selectedmembers: string[] = [];
 
   textbutton: string = 'Editar';
   subscriptionuser?: Subscription;
@@ -46,11 +46,15 @@ export class FormBoardComponent implements OnInit {
       typeAction: string;
       labelButton: string;
       boardId: string;
+      team: [];
       // incharge: string;
     }
   ) {
     // console.log(data.boardForm);
     this.boardForm = data.boardForm;
+
+    // if(data.typeAction === 'Edit')
+    //   this.members = data.boardForm.
     // this.us.getUsersWithOutCurrentUser();
 
     // console.log('data.typeAction');
@@ -66,8 +70,12 @@ export class FormBoardComponent implements OnInit {
 
       this.subscriptionuser = this.us.userswithoutlogged$?.subscribe(
         (users) => {
-          console.log(users);
+          // console.log(users);
           if (users) this.userswithoutme = users;
+
+          if (this.data.typeAction === 'Edit') {
+            this.members = new FormControl(this.data.team);
+          }
         }
       );
     }
@@ -95,7 +103,7 @@ export class FormBoardComponent implements OnInit {
 
     if (this.data.typeAction === 'Create') this.addBoard(user.uid);
 
-    // if (this.data.typeAction === 'Edit') this.editTicket();
+    if (this.data.typeAction === 'Edit') this.editBoard();
   }
 
   async addBoard(uid: string) {
@@ -107,12 +115,12 @@ export class FormBoardComponent implements OnInit {
     // team?: UserProfile[];
     const createdAt = Timestamp.now();
     const { title } = this.boardForm.value;
-    console.log(this.selectedmembers);
+    // console.log(this.selectedmembers);
     const members = [
       this.currentUser?.uid ? this.currentUser?.uid : '',
-      ...this.selectedmembers,
+      ...(this.members.value as []),
     ];
-    console.log(members);
+    // console.log(members);
 
     const data: Board = {
       id: '',
@@ -138,41 +146,37 @@ export class FormBoardComponent implements OnInit {
     }
   }
 
-  // async editBoard() {
-  //   const {
-  //     title,
-  //     team,
-  //     typeError,
-  //     levelError,
-  //     softwareVersion,
-  //     description,
-  //     status,
-  //     incharge,
-  //   } = this.boardForm.value;
+  async editBoard() {
+    const { title } = this.boardForm.value;
 
-  //   const data = {
-  //     title,
-  //     typeError,
-  //     levelError,
-  //     softwareVersion,
-  //     status,
-  //     team,
-  //     description,
-  //     incharge,
-  //   };
+    const members = [
+      this.currentUser?.uid ? this.currentUser?.uid : '',
+      ...(this.members.value as []),
+    ];
 
-  //   try {
-  //     this.ts.updateTicket(this.data.ticketId, data);
-  //     // this.snackBar.open(`modificado exitosamente`, 'Close', {
-  //     //   duration: 4000,
-  //     // });
-  //     this.dialogRef.close();
-  //   } catch (error: any) {
-  //     this.snackBar.open(`${error.message} erro al modificar`, 'Close', {
-  //       duration: 4000,
-  //     });
-  //   }
-  // }
+    const data = {
+      title,
+      team: members,
+    };
+    // console.log(data);
+    // console.log(this.members);
+    // console.log(this.members.value);
+    // console.log(this.members.get);
+    // console.log(this.members.);
+    // console.log(this.data.boardId);
+
+    try {
+      this.bs.updateBoard(this.data.boardId, data);
+      // this.snackBar.open(`modificado exitosamente`, 'Close', {
+      //   duration: 4000,
+      // });
+      this.dialogRef.close();
+    } catch (error: any) {
+      this.snackBar.open(`${error.message} erro al modificar`, 'Close', {
+        duration: 4000,
+      });
+    }
+  }
 
   // changeStatusButton() {
   //   this.iseditable = !this.iseditable;

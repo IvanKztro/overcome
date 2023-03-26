@@ -1,99 +1,116 @@
 
-<div class="flex justify-between ">
-    <h3>{{currentboard?.title}}</h3>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createTicket()">
-        Crear Ticket
-    </button>
-</div>
-<div class="flex gap-3 overflow-x-scroll bg-gray-100 mt-5 px-3" cdkDropListGroup>
+<section *ngIf="currentboard">
 
-    <!-- <div cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
-        <div class="example-container px-2 py-3 shadow-lg rounded-lg mt-3" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-    </div> -->
+    <div class="flex justify-between items-center">
+        <div class="flex gap-3 justify-center items-center" >
+            <div class="title">{{currentboard.title ? currentboard.title : 'None'}}</div>
+            <button *ngIf="currentboard.createdBy === currentUser?.uid" mat-icon-button (click)="openDialogEditBoard(currentboard)">
+                <mat-icon>
+                   edit
+                </mat-icon>
+            </button>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createTicket()">
+            Crear Ticket
+        </button>
+    </div>
+    <div *ngIf="ticketscomplets?.length !== 0 || ticketsnews?.length !== 0 || ticketsprocess?.length !== 0"
+    class="flex gap-3 overflow-x-scroll bg-gray-100 mt-5 px-3" cdkDropListGroup>
+
+        <!-- <div cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
+            <div class="example-container px-2 py-3 shadow-lg rounded-lg mt-3" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+        </div> -->
 
 
-    <section class="w-[22rem] py-5" id="Nuevo" cdkDropList [cdkDropListData]="ticketsnews" (cdkDropListDropped)="drop($event)">
-        <h3 class="text-center">Nuevo</h3>
-        <!-- <div  class=" "> -->
-    
-            <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsnews" cdkDrag >
+        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="Nuevo" cdkDropList [cdkDropListData]="ticketsnews" (cdkDropListDropped)="drop($event)">
+            <h3 class="text-center subtitle">Nuevo</h3>
+            <!-- <div  class=" "> -->
+        
+                <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsnews" cdkDrag >
+                    <div class="flex font-bold text-md mb-2">
+                        <div>{{ticket.title}}</div>
+                    </div>
+                    <span class="text-gray-700 text-sm">
+                        <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
+                        <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
+                        Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
+                    </span><br><br>
+                    <!-- <small *ngIf="ticket.createdAt">
+                        {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                    </small> <br> -->
+                    <span class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                        {{ticket.typeError}}
+                    </span>
+                    
+                </div>
+                
+            <!-- </div> -->
+        
+        </section>
+
+
+        <section class="w-[22rem] px-3 py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
+            <h3 class="text-center subtitle">En proceso</h3>
+            <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
+                (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsprocess" cdkDrag>
                 <div class="flex font-bold text-md mb-2">
+                    
                     <div>{{ticket.title}}</div>
                 </div>
                 <span class="text-gray-700 text-sm">
                     <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
                     <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
                     Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
+
                 </span><br><br>
                 <!-- <small *ngIf="ticket.createdAt">
                     {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small> <br> -->
-                <span class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                </small><br> -->
+                <span 
+                    class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
                     {{ticket.typeError}}
                 </span>
-                
-            </div>
             
-        <!-- </div> -->
-    
-    </section>
-
-
-    <section class="w-[22rem] px-3 py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
-        <h3 class="text-center">En proceso</h3>
-        <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
-            (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsprocess" cdkDrag>
-            <div class="flex font-bold text-md mb-2">
-                
-                <div>{{ticket.title}}</div>
             </div>
-            <span class="text-gray-700 text-sm">
-                <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
-                <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
-                Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-
-            </span><br><br>
-            <!-- <small *ngIf="ticket.createdAt">
-                {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-            </small><br> -->
-            <span 
-                class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                {{ticket.typeError}}
-            </span>
         
-        </div>
-    
-    </section>
+        </section>
 
-    <section class="w-[22rem] px-3 py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
-        <h3 class="text-center">Completado</h3>
-        <div 
-            [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" 
-            class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
-            (click)="viewTicket(ticket)" *ngFor="let ticket of ticketscomplets" cdkDrag>
-            <div class="flex font-bold text-md mb-2">
-                
-                <div>{{ticket.title}}</div>
+        <section class="w-[22rem] px-3 py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
+            <h3 class="text-center subtitle">Completado</h3>
+            <div 
+                [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" 
+                class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
+                (click)="viewTicket(ticket)" *ngFor="let ticket of ticketscomplets" cdkDrag>
+                <div class="flex font-bold text-md mb-2">
+                    
+                    <div>{{ticket.title}}</div>
+                </div>
+                <span class="text-gray-700 text-sm">
+                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
+                    <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
+                    Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
+
+                </span><br><br>
+                <!-- <small *ngIf="ticket.createdAt">
+                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                </small><br> -->
+                <span 
+                    class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                    {{ticket.typeError}}
+                </span>
+            
             </div>
-            <span class="text-gray-700 text-sm">
-                <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
-                <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
-                Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-
-            </span><br><br>
-            <!-- <small *ngIf="ticket.createdAt">
-                {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-            </small><br> -->
-            <span 
-                class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                {{ticket.typeError}}
-            </span>
         
-        </div>
-    
-    </section>
-    
-    
-    
-    
-</div> 
+        </section>
+        
+    </div> 
+
+    <div *ngIf="ticketscomplets?.length === 0 && ticketsnews?.length === 0 && ticketsprocess?.length === 0">
+        <h3 class="text-center text-[4rem] font-bold">No hay tickets creados</h3>
+    </div>
+
+</section>
+
+<section *ngIf="!currentboard">
+    <h4 class="title text-center">{{noProjects !== '' ? noProjects : 'No existe este Proyecto o no tienes permisos sobre el.' }}</h4>
+</section>

@@ -20,12 +20,12 @@
             </ng-container>
         </section> -->
         <!-- <section *ngIf="user.role !== 'Administrador'"> -->
-            <div class="flex justify-center ">
+            <div class="flex justify-center mt-[3rem]">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mb-4 py-2 px-4 rounded" (click)="openDialog()">
                     Crear Proyecto
                 </button>
             </div>
-        <section>
+        <section *ngIf="boards?.length !== 0">
             <h3 matSubheader>Proyectos</h3>
             <ng-container *ngFor="let board of boards">
                 <!-- <mat-list-item (click)="goToBoard('project/:board.id/task/:idtask')"> -->
@@ -38,19 +38,19 @@
                     <h4 matLine>{{ board.title }}</h4>
                 </mat-list-item>
             </ng-container>
-            <mat-divider></mat-divider>
+            <!-- <mat-divider></mat-divider> -->
 
-            <ng-container *ngFor="let nav of navigationUser">
+            <!-- <ng-container *ngFor="let nav of navigationUser">
                 <h3 matSubheader>{{ nav.label }}</h3>
-                <!-- <mat-list-item *ngFor="let link of nav.links" (click)="goToBoard()"> -->
+                 <mat-list-item *ngFor="let link of nav.links" (click)="goToBoard()"> 
                 <mat-list-item *ngFor="let link of nav.links" [routerLink]="link.route">
-                    <!-- <mat-icon matListIcon class="material-icons-outlined">
+                 <mat-icon matListIcon class="material-icons-outlined">
                         {{ link.icon }}
-                    </mat-icon> -->
+                    </mat-icon> 
                     <h4 matLine>{{ link.label }}</h4>
                 </mat-list-item>
                 <mat-divider *ngIf="nav.divider"></mat-divider>
-            </ng-container>
+            </ng-container> -->
         </section>
     </mat-nav-list>
 </div>

@@ -24,22 +24,22 @@ export class SideBarComponent implements OnInit {
   boards?: Board[] = [];
 
   navigationUser = [
-    {
-      label: 'Perfil',
-      links: [
-        {
-          label: 'Mi Perfil',
-          icon: 'perm_identity',
-          route: '/profile',
-        },
-        // {
-        //   label: 'Configuración',
-        //   icon: 'settings',
-        //   route: '/expenses',
-        // },
-      ],
-      divider: false,
-    },
+    // {
+    //   label: 'Perfil',
+    //   links: [
+    //     {
+    //       label: 'Mi Perfil',
+    //       icon: 'perm_identity',
+    //       route: '/profile',
+    //     },
+    //     // {
+    //     //   label: 'Configuración',
+    //     //   icon: 'settings',
+    //     //   route: '/expenses',
+    //     // },
+    //   ],
+    //   divider: false,
+    // },
   ];
 
   boardForm!: FormGroup;
@@ -55,11 +55,6 @@ export class SideBarComponent implements OnInit {
   ) {
     this.boardForm = this.fb.group({
       title: ['', [Validators.required]],
-      // team: [this.members],
-      // stock: [0, [Validators.required]],
-      // amount: [0, [Validators.required]],
-      // type: ['', [Validators.required]],
-      // toy_Id: ['', [Validators.required]],
     });
   }
 
