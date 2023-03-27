@@ -11,6 +11,7 @@ export interface UserProfile {
   status?: string;
   createdBy?: string;
   createdAt?: Timestamp;
+  plan?: string;
 
   dragdropInfo?: boolean;
 }
