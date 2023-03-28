@@ -31,9 +31,9 @@ export class FormTicketComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: 'auto',
+    height: '20rem',
     minHeight: '0',
-    maxHeight: 'auto',
+    maxHeight: '20rem',
     width: 'auto',
     minWidth: '0',
     translate: 'yes',
