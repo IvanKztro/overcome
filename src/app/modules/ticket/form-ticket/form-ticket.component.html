@@ -29,7 +29,7 @@
         </div>
         <div> 
             <span class="text-lg font-bold " >Nivel Error:</span> 
-            <p class="text-lg" > {{ticketForm.value.levelError}} </p> 
+            <p  class="text-lg" > {{ticketForm.value.levelError}} </p> 
         </div>
         <div> 
             <span class="text-lg font-bold " >Versión:</span> 
@@ -37,7 +37,7 @@
         </div>
         <div> 
             <span class="text-lg font-bold " >Descripción:</span> 
-            <p class="text-lg" > {{ticketForm.value.description }} </p> 
+            <p class="text-lg" [innerHTML]="ticketForm.value.description" ></p> 
         </div>
 
 
@@ -105,10 +105,28 @@
                 <input type="text" matInput formControlName="softwareVersion">
             </mat-form-field>
             
-            <mat-form-field appearance="outline" >
+            <!-- <mat-form-field appearance="outline" >
                 <mat-label>Descripcion</mat-label>
                 <textarea matInput formControlName="description" rows="3"></textarea>
-            </mat-form-field>
+            </mat-form-field> -->
+
+            <!-- <mat-form-field appearance="outline"> -->
+                <mat-label>Descripcion</mat-label>
+                <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+            <!-- </mat-form-field> -->
+
+            <!-- <mat-label>Descripcion</mat-label>
+            <angular-editor formControlName="description" [config]="editorConfig"></angular-editor> -->
+
+            <!-- <angular-editor id="editor1" formControlName="description" [config]="editorConfig">
+                <ng-template #customButtons let-executeCommandFn="executeCommandFn">
+                    <ae-toolbar-set>
+                        <ae-button iconClass="fa fa-html5" title="Angular editor logo"
+                            (buttonClick)="executeCommandFn('insertHtml', angularEditorLogo)">
+                        </ae-button>
+                    </ae-toolbar-set>
+                </ng-template>
+            </angular-editor> -->
     
         
         </form> 

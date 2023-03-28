@@ -26,8 +26,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TicketCardComponent } from './ticket-card/ticket-card.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 @NgModule({
-  declarations: [TicketComponent, TicketsListComponent, FormTicketComponent, TicketCardComponent],
+  declarations: [
+    TicketComponent,
+    TicketsListComponent,
+    FormTicketComponent,
+    TicketCardComponent,
+  ],
   imports: [
     CommonModule,
     TicketRoutingModule,
@@ -51,6 +59,8 @@ import { TicketCardComponent } from './ticket-card/ticket-card.component';
     DragDropModule,
     // moveItemInArray,
     // transferArrayItem
+    AngularEditorModule,
+    HttpClientModule,
   ],
 })
 export class TicketModule {}

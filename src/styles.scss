@@ -3,6 +3,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import '../node_modules/font-awesome/css/font-awesome.css';
 
 @include mat.core(); 
 // @import url("./assets/scss/helpers.scss"); 
