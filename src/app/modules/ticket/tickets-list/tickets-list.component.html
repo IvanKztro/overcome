@@ -15,7 +15,7 @@
         </button>
     </div>
     <div *ngIf="ticketscomplets?.length !== 0 || ticketsnews?.length !== 0 || ticketsprocess?.length !== 0"
-    class="flex gap-3 overflow-x-scroll bg-gray-100 mt-5 px-3" cdkDropListGroup>
+    class="grid grid-cols-3 gap-3 overflow-x-scroll bg-gray-200 mt-5 px-3" cdkDropListGroup>
 
        
         <app-ticket-card [tickets]="ticketsnews" [currentboard]="currentboard" 

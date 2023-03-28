@@ -1,14 +1,13 @@
 <h2 mat-dialog-title>{{data.title}}</h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="flex justify-center items-center">
     <div fxLayoutAlign="center center" *ngIf="isupload && data.typeAction === 'photo'">
         <app-spinner></app-spinner>
     </div>
-    <section *ngIf="!isupload && data.typeAction === 'photo'" fxLayout="column" fxLayoutGap="20px"
-        fxLayoutAlign="center center">
+    <section class="flex flex-col justify-center items-center" *ngIf="!isupload && data.typeAction === 'photo'" >
 
-        <img id="imgpreview" class="image clip-circle">
-        <button mat-stroked-button color="primary" (click)="file.click()">
+        <img id="imgpreview" class="image clip-circle mb-3">
+        <button class="mt-2" mat-stroked-button color="primary" (click)="file.click()">
             Seleccionar
         </button>
         <input type="file" hidden #file (change)="selectFile($event)" />
@@ -17,7 +16,7 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions fxLayoutAlign="end">
+<mat-dialog-actions class="flex justify-end items-center" fxLayoutAlign="end">
     <button mat-button mat-dialog-close>Cancelar</button>
     <button mat-button color="primary" [disabled]="!fileinput" (click)="uploadFile()">
         {{data.labelButton}}
