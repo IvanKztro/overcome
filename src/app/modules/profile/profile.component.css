@@ -1,0 +1,8 @@
+.image {
+    width: 8rem;
+    height: 8rem;
+}
+
+.clip-circle {
+    clip-path: circle(4rem at center);
+}

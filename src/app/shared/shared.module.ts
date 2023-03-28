@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { FormBoardComponent } from './components/form-board/form-board.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FormBoardComponent } from './components/form-board/form-board.component
     DialogInfoComponent,
     SideBarComponent,
     FormBoardComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,6 @@ import { FormBoardComponent } from './components/form-board/form-board.component
     MatFormFieldModule,
     MatSelectModule,
   ],
-  exports: [NavbarComponent, SideBarComponent],
+  exports: [NavbarComponent, SideBarComponent, SpinnerComponent],
 })
 export class SharedModule {}

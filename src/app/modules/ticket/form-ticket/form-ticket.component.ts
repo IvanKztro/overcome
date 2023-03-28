@@ -43,11 +43,16 @@ export class FormTicketComponent implements OnInit {
       ticketId: string;
       incharge: string;
       boardId: string;
+      iscreator: boolean;
     }
   ) {
     this.ticketForm = data.ticketForm;
     this.us.getUsers();
     this.iseditable = data.typeAction === 'Create' ? true : false;
+
+    this.statusss = data.iscreator
+      ? ['Nuevo', 'En proceso', 'Atendido', 'Archivado']
+      : ['Nuevo', 'En proceso', 'Atendido'];
 
     // console.log('data.typeAction');
     // console.log(data.typeAction);

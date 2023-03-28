@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+    <form [formGroup]="userForm" fxLayout="column">
+        <section *ngIf="data.typeAction === 'email'" fxLayout="column">
+            <mat-form-field appearance="outline">
+                <mat-label>Nuevo Correo</mat-label>
+                <input matInput placeholder="" formControlName="email" type="email" autocomplete="nuevo email" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Repetir Correo</mat-label>
+                <input matInput placeholder="" formControlName="email2" type="email" autocomplete="repetir correo" />
+            </mat-form-field>
+            <div *ngIf="errorForm" class="errorForm">
+                {{errorForm}}
+            </div>
+        </section>
+        <section *ngIf="data.typeAction === 'password'" fxLayout="column">
+
+            <mat-form-field appearance="fill" appearance="outline" fxFlex="100">
+                <mat-label>Contraseña actual</mat-label>
+                <input matInput [type]="hide1 ? 'password' : 'text'" formControlName="oldpassword">
+                <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide1">
+                    <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" appearance="outline" fxFlex="100">
+                <mat-label>Nueva contraseña</mat-label>
+                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="newpassword">
+                <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide2">
+                    <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" appearance="outline" fxFlex="100">
+                <mat-label>Repetir nueva contraseña</mat-label>
+                <input matInput [type]="hide3 ? 'password' : 'text'" formControlName="newpassword2">
+                <button mat-icon-button matSuffix (click)="hide3 = !hide3" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide3">
+                    <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <div *ngIf="errorForm" class="errorForm">
+                {{errorForm}}
+            </div>
+        </section>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button color="primary" [disabled]="userForm.invalid" (click)="hnadleClick()">
+        {{data.labelButton}}
+    </button>
+</mat-dialog-actions>

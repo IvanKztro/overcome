@@ -30,17 +30,21 @@
                     <div class="flex font-bold text-md mb-2">
                         <div>{{ticket.title}}</div>
                     </div>
-                    <span class="text-gray-700 text-sm">
-                        <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
-                        <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
-                        Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-                    </span><br><br>
+                    <!-- <span class="text-gray-700 text-sm">
+                                        Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
+                                    </span><br><br> -->
                     <!-- <small *ngIf="ticket.createdAt">
-                        {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                    </small> <br> -->
-                    <span class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                        {{ticket.typeError}}
-                    </span>
+                                        {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
+                                    </small><br> -->
+                    <div class="flex justify-between items-center mt-[3rem]">
+                        <span class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                            {{ticket.typeError}}
+                        </span>
+                        <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
+                        <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''" [src]="ticket.inchargeObj.photoURL" alt=""
+                            class="profile-image" *ngIf="ticket.inchargeObj" />
+                    
+                    </div>
                     
                 </div>
                 
@@ -49,7 +53,7 @@
         </section>
 
 
-        <section class="w-[22rem] px-3 py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
+        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
             <h3 class="text-center subtitle">En proceso</h3>
             <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
                 (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsprocess" cdkDrag>
@@ -57,25 +61,28 @@
                     
                     <div>{{ticket.title}}</div>
                 </div>
-                <span class="text-gray-700 text-sm">
-                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
-                    <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
+                <!-- <span class="text-gray-700 text-sm">
                     Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-
-                </span><br><br>
+                </span><br><br> -->
                 <!-- <small *ngIf="ticket.createdAt">
                     {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
                 </small><br> -->
-                <span 
-                    class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                    {{ticket.typeError}}
-                </span>
+                <div class="flex justify-between items-center mt-[3rem]">
+                    <span 
+                        class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                        {{ticket.typeError}}
+                    </span>
+                    <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
+                    <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''"
+                        [src]="ticket.inchargeObj.photoURL" alt="" class="profile-image" *ngIf="ticket.inchargeObj" />
+
+                </div>
             
             </div>
         
         </section>
 
-        <section class="w-[22rem] px-3 py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
+        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
             <h3 class="text-center subtitle">Completado</h3>
             <div 
                 [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" 
@@ -85,19 +92,22 @@
                     
                     <div>{{ticket.title}}</div>
                 </div>
-                <span class="text-gray-700 text-sm">
-                    <!-- Responsable: {{ticket?.manager?.displayName ? ticket?.manager?.displayName : 'none'}} -->
-                    <!-- Responsable: {{ticket?.team ? ticket?.team : 'none'}} -->
+                <!-- <span class="text-gray-700 text-sm">
                     Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-
-                </span><br><br>
+                </span><br><br> -->
                 <!-- <small *ngIf="ticket.createdAt">
                     {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
                 </small><br> -->
-                <span 
-                    class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                    {{ticket.typeError}}
-                </span>
+                <div class="flex justify-between items-center mt-[3rem]">
+                    <span 
+                        class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
+                        {{ticket.typeError}}
+                    </span>
+                    <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
+                    <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''"
+                        [src]="ticket.inchargeObj.photoURL" alt="" class="profile-image" *ngIf="ticket.inchargeObj" />
+
+                </div>
             
             </div>
         

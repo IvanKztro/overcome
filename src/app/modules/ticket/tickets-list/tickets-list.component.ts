@@ -19,6 +19,8 @@ import {
 import { Board } from 'src/app/shared/types/board';
 import { FormBoardComponent } from 'src/app/shared/components/form-board/form-board.component';
 
+// import { TooltipPosition } from '@angular/material/tooltip';
+
 // import {DialogInfoComponent}
 
 @Component({
@@ -129,6 +131,8 @@ export class TicketsListComponent implements OnInit {
     currentUser: UserProfile | null,
     idcurrentboard: string
   ) {
+    // console.log(currentUser);
+    // console.log(idcurrentboard);
     this.ticketsService.getTicketsByBoard(currentUser, idcurrentboard);
 
     // console.log(this.subscriptionTickets);
@@ -234,6 +238,7 @@ export class TicketsListComponent implements OnInit {
         labelButton: 'Crear',
         ticketId: '',
         boardId: this.currentboard.id,
+        iscreator: this.isCreatorUser(),
       },
       width: '700px',
     });
@@ -261,6 +266,7 @@ export class TicketsListComponent implements OnInit {
         ticketId: ticket.id,
         incharge: ticket.inchargeObj ? ticket.inchargeObj.displayName : 'None',
         boardId: this.currentboard.id,
+        iscreator: this.isCreatorUser(),
       },
       width: '700px',
     });
@@ -287,9 +293,14 @@ export class TicketsListComponent implements OnInit {
         labelButton: 'Guardar',
         ticketId: ticket.id,
         boardId: this.currentboard.id,
+        iscreator: this.isCreatorUser(),
       },
       width: '700px',
     });
+  }
+
+  isCreatorUser() {
+    return this.currentboard.createdBy === this.currentUser?.uid ? true : false;
   }
 
   showDialogDragDrop() {

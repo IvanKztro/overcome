@@ -57,13 +57,13 @@ const routes: Routes = [
   //     import('./modules/board/board.module').then((m) => m.BoardModule),
   //   data: { authGuardPipe: redirectUnauthorizedToSignIn },
   // },
-  // {
-  //   path: 'profile',
-  //   loadChildren: () =>
-  //     import('./modules/profile/profile.module').then((m) => m.ProfileModule),
-  //   canActivate: [AuthGuard],
-  //   data: { authGuardPipe: redirectUnauthorizedToSignIn },
-  // },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./modules/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToSignIn },
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,20 @@
+<div class="container" style="margin:3rem;">
+    <section class="flex flex-col gap-3 justify-center items-center"
+        *ngIf="auth.user$ | async as user">
+
+        <img [src]="user?.photoURL" class="image clip-circle">
+        <h3>{{user.displayName}}</h3>
+        <h3>{{user.email}}</h3>
+        <h3>{{user.role}}</h3>
+    </section>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <section class="flex flex-col gap-3 justify-center items-center">
+        <button mat-raised-button color="primary" (click)="openDialogUploadPhoto()">Cambiar foto</button>
+        <button mat-raised-button color="primary" (click)="openDialog('email')">Cambiar correo</button>
+        <button mat-raised-button color="primary" (click)="openDialog('password')">Cambiar contraseña</button>
+    </section>
+    <br>
+    <mat-divider></mat-divider>
+</div>

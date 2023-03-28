@@ -1,14 +1,36 @@
-<div  class="nav-bar w-full" *ngIf="auth.user$ | async as user">
+<div class="flex justify-end items-center bg-red-200" class="nav-bar" *ngIf="auth.user$ | async as user">
+
+    <!-- <button mat-mini-fab color="primary" class="mr-3" style="margin-right:0.5rem;" (click)="openDialog()">
+        <mat-icon>info</mat-icon>
+        <p class="text-black">99</p>
+    </button> -->
+    <div class="display-name" fxShow.sm="false" fxShow.xs="false">
+        {{ user.displayName }}
+    </div>
+    <img src="/assets/images/profile.webp" alt="" class="profile-image" [matMenuTriggerFor]="menu" *ngIf="!user" />
+    <img [src]="user.photoURL" alt="" class="profile-image" [matMenuTriggerFor]="menu" *ngIf="user" />
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            Mi Perfil
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Salir</span>
+        </button>
+    </mat-menu>
+</div>
+
+<!-- <div  class="nav-bar w-full" *ngIf="auth.user$ | async as user">
     <section class="flex justify-between">
 
         <div class="display-name" >
             Hola, {{ user.displayName }}
         </div>
-        <!-- <div class="ml-4"> -->
             <button mat-menu-item (click)="logout()">
                 <p class="text-lg ">Cerrar sesión</p>
             </button>
-        <!-- </div> -->
     </section>
     
-</div>
+</div> -->
