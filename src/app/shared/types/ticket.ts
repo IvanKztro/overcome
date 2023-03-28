@@ -42,6 +42,6 @@ export enum LevelError {
 export enum StatusT {
   newt = 'Nuevo',
   proccesst = 'En proceso',
-  completet = 'Atendido',
+  completet = 'Completado',
   archived = 'Archivado',
 }

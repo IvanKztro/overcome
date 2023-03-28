@@ -24,9 +24,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TicketCardComponent } from './ticket-card/ticket-card.component';
 
 @NgModule({
-  declarations: [TicketComponent, TicketsListComponent, FormTicketComponent],
+  declarations: [TicketComponent, TicketsListComponent, FormTicketComponent, TicketCardComponent],
   imports: [
     CommonModule,
     TicketRoutingModule,

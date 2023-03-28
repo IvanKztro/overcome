@@ -11,11 +11,11 @@ import { TicketsService } from 'src/app/shared/services/tickets.service';
 import { Ticket } from './../../../shared/types/ticket';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+// import {
+//   CdkDragDrop,
+//   moveItemInArray,
+//   transferArrayItem,
+// } from '@angular/cdk/drag-drop';
 import { Board } from 'src/app/shared/types/board';
 import { FormBoardComponent } from 'src/app/shared/components/form-board/form-board.component';
 
@@ -38,7 +38,7 @@ export class TicketsListComponent implements OnInit {
   ticketForm!: FormGroup;
   boardForm!: FormGroup;
 
-  currentUser!: UserProfile | null;
+  currentUser!: UserProfile | null | undefined;
 
   noProjects: string = '';
   currentboard!: Board;
@@ -113,18 +113,6 @@ export class TicketsListComponent implements OnInit {
     this.destroySubscription(this.subscriptionTickets as Subscription);
     this.destroySubscription(this.subscriptionboards as Subscription);
     this.destroySubscription(this.subscriptionparams as Subscription);
-
-    // if (this.subscriptionTickets) {
-    //   this.subscriptionTickets.unsubscribe();
-    // }
-
-    // if (this.subscriptionboards) {
-    //   this.subscriptionboards.unsubscribe();
-    // }
-
-    // if (this.subscriptionparams) {
-    //   this.subscriptionparams.unsubscribe();
-    // }
   }
 
   getObservableTickets(
@@ -190,9 +178,6 @@ export class TicketsListComponent implements OnInit {
 
     this.subscriptionboards = this.bs.boards$?.subscribe((boards) => {
       if (boards) {
-        // console.log(boards);
-        // console.log(this.currentboard);
-        // if (boards[0]?.id !== this.currentboard.id) {
         if (boards.length !== 0) {
           const boardId = boards[0]?.id;
           this.currentboard = boards[0];
@@ -200,13 +185,6 @@ export class TicketsListComponent implements OnInit {
         } else {
           this.router.navigate(['boards', 'none']);
         }
-        // }
-
-        // this.bs.boardidselected = boards[0];
-        // console.log('SIDEBAR: boardselected - ', this.bs.boardidselected);
-        // this.subscriptionparams = this.routeractived.params.subscribe((p) => {
-        //   console.log('PARAMS: ', p);
-        // });
       }
     });
   }
@@ -237,34 +215,6 @@ export class TicketsListComponent implements OnInit {
         ticketForm: this.ticketForm,
         labelButton: 'Crear',
         ticketId: '',
-        boardId: this.currentboard.id,
-        iscreator: this.isCreatorUser(),
-      },
-      width: '700px',
-    });
-  }
-
-  viewTicket(ticket: Ticket) {
-    this.ticketForm = this.fb.group({
-      title: [ticket.title],
-      // sizes: [''],
-      team: [ticket.team],
-      typeError: [ticket.typeError],
-      levelError: [ticket.levelError],
-      softwareVersion: [ticket.softwareVersion],
-      status: [ticket.status ? ticket.status : ''],
-      description: [ticket.description],
-      incharge: [ticket.incharge],
-    });
-
-    this.dialog.open(FormTicketComponent, {
-      data: {
-        title: ticket.title,
-        typeAction: 'Edit',
-        ticketForm: this.ticketForm,
-        labelButton: 'Guardar',
-        ticketId: ticket.id,
-        incharge: ticket.inchargeObj ? ticket.inchargeObj.displayName : 'None',
         boardId: this.currentboard.id,
         iscreator: this.isCreatorUser(),
       },
@@ -335,62 +285,5 @@ export class TicketsListComponent implements OnInit {
       },
       width: '440px',
     });
-  }
-
-  drop(event: CdkDragDrop<any[] | any>) {
-    const itemdrop = event.previousContainer.data[event.previousIndex];
-
-    if (event) {
-      if (event.previousContainer === event.container) {
-        moveItemInArray(
-          event?.container?.data,
-          event.previousIndex,
-          event.currentIndex
-        );
-        // console.log(event.container?.data);
-        // console.log(event.previousIndex);
-        // console.log(event.currentIndex);
-      } else {
-        transferArrayItem(
-          event?.previousContainer?.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex
-        );
-        // console.log(event.container?.data);
-        // console.log(event.previousIndex);
-        // console.log(event.currentIndex);
-      }
-
-      itemdrop.status = event.container.id;
-      itemdrop.position = event.currentIndex;
-
-      // console.log(event.previousContainer?.data);
-      // console.log(event.container?.data);
-      this.updateTasks(event.container?.data, itemdrop.status);
-      // this.updateTasks(event?.previousContainer?.data, itemdrop.status);
-    }
-  }
-
-  updateTasks(currentTasks: Ticket[], status: string) {
-    // let position = 0;
-
-    currentTasks.map((task, index) => {
-      // console.log(task.title);
-      // console.log(index);
-      // console.log(task.position);
-      // if (task.position !== index) {
-      task.position = index;
-      const update = {
-        position: task?.position ? task?.position : 0,
-        status: task.status,
-      };
-      this.ticketsService.updateTicket(task.id, update, this.currentboard.id);
-      // }
-      // task.position = position;
-      // position++;
-    });
-
-    // console.log(currentTasks);
   }
 }

@@ -20,7 +20,7 @@ export class FormTicketComponent implements OnInit {
   teams = ['Soporte', 'Desarrollo', 'Atencion a clientes'];
   bugs = ['Bug', 'Feature'];
   levels = ['High', 'Medium', 'Low'];
-  statusss = ['Nuevo', 'En proceso', 'Atendido', 'Archivado'];
+  statusss = ['Nuevo', 'En proceso', 'Completado', 'Archivado'];
 
   private isClicked = false;
 
@@ -51,8 +51,8 @@ export class FormTicketComponent implements OnInit {
     this.iseditable = data.typeAction === 'Create' ? true : false;
 
     this.statusss = data.iscreator
-      ? ['Nuevo', 'En proceso', 'Atendido', 'Archivado']
-      : ['Nuevo', 'En proceso', 'Atendido'];
+      ? ['Nuevo', 'En proceso', 'Completado', 'Archivado']
+      : ['Nuevo', 'En proceso', 'Completado'];
 
     // console.log('data.typeAction');
     // console.log(data.typeAction);
@@ -104,6 +104,7 @@ export class FormTicketComponent implements OnInit {
       status: StatusT.newt,
       description,
       incharge,
+      position: 0,
       boardId: this.data.boardId,
     };
     try {

@@ -17,101 +17,16 @@
     <div *ngIf="ticketscomplets?.length !== 0 || ticketsnews?.length !== 0 || ticketsprocess?.length !== 0"
     class="flex gap-3 overflow-x-scroll bg-gray-100 mt-5 px-3" cdkDropListGroup>
 
-        <!-- <div cdkDropList [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
-            <div class="example-container px-2 py-3 shadow-lg rounded-lg mt-3" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-        </div> -->
+       
+        <app-ticket-card [tickets]="ticketsnews" [currentboard]="currentboard" 
+        [currentUser]="currentUser" title = "Nuevo"></app-ticket-card>
 
+        <app-ticket-card [tickets]="ticketsprocess" [currentboard]="currentboard"
+        [currentUser]="currentUser" title = "En proceso"></app-ticket-card>
 
-        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="Nuevo" cdkDropList [cdkDropListData]="ticketsnews" (cdkDropListDropped)="drop($event)">
-            <h3 class="text-center subtitle">Nuevo</h3>
-            <!-- <div  class=" "> -->
-        
-                <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4" (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsnews" cdkDrag >
-                    <div class="flex font-bold text-md mb-2">
-                        <div>{{ticket.title}}</div>
-                    </div>
-                    <!-- <span class="text-gray-700 text-sm">
-                                        Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-                                    </span><br><br> -->
-                    <!-- <small *ngIf="ticket.createdAt">
-                                        {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                                    </small><br> -->
-                    <div class="flex justify-between items-center mt-[3rem]">
-                        <span class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                            {{ticket.typeError}}
-                        </span>
-                        <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
-                        <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''" [src]="ticket.inchargeObj.photoURL" alt=""
-                            class="profile-image" *ngIf="ticket.inchargeObj" />
-                    
-                    </div>
-                    
-                </div>
-                
-            <!-- </div> -->
-        
-        </section>
+        <app-ticket-card [tickets]="ticketscomplets" [currentboard]="currentboard" 
+        [currentUser]="currentUser" title = "Completado"></app-ticket-card>
 
-
-        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="En proceso" cdkDropList [cdkDropListData]="ticketsprocess" (cdkDropListDropped)="drop($event)">
-            <h3 class="text-center subtitle">En proceso</h3>
-            <div [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
-                (click)="viewTicket(ticket)" *ngFor="let ticket of ticketsprocess" cdkDrag>
-                <div class="flex font-bold text-md mb-2">
-                    
-                    <div>{{ticket.title}}</div>
-                </div>
-                <!-- <span class="text-gray-700 text-sm">
-                    Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-                </span><br><br> -->
-                <!-- <small *ngIf="ticket.createdAt">
-                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small><br> -->
-                <div class="flex justify-between items-center mt-[3rem]">
-                    <span 
-                        class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                        {{ticket.typeError}}
-                    </span>
-                    <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
-                    <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''"
-                        [src]="ticket.inchargeObj.photoURL" alt="" class="profile-image" *ngIf="ticket.inchargeObj" />
-
-                </div>
-            
-            </div>
-        
-        </section>
-
-        <section class=" xs:w-full sm:w-full md:w-[22rem] lg:w-[22rem] xl:w-[22rem] py-5" id="Atendido"  cdkDropList [cdkDropListData]="ticketscomplets" (cdkDropListDropped)="drop($event)">
-            <h3 class="text-center subtitle">Completado</h3>
-            <div 
-                [class]="ticket.levelError === 'High' ? 'bg-red-200 hover:bg-red-100' : ticket.levelError === 'Medium' ? 'bg-yellow-200 hover:bg-yellow-100' : 'bg-green-200 hover:bg-green-100'" 
-                class="px-3 py-4 cursor-pointer  mt-3 mb-3 rounded  shadow-lg  mb-4"
-                (click)="viewTicket(ticket)" *ngFor="let ticket of ticketscomplets" cdkDrag>
-                <div class="flex font-bold text-md mb-2">
-                    
-                    <div>{{ticket.title}}</div>
-                </div>
-                <!-- <span class="text-gray-700 text-sm">
-                    Responsable: {{ticket?.inchargeObj?.displayName ? ticket?.inchargeObj?.displayName : 'None'}}
-                </span><br><br> -->
-                <!-- <small *ngIf="ticket.createdAt">
-                    {{ ticket.createdAt.toDate() | date: "dd/MM/yyyy" }}
-                </small><br> -->
-                <div class="flex justify-between items-center mt-[3rem]">
-                    <span 
-                        class=" bg-gray-500  rounded-full px-2 py-1 text-xs font-semibold mr-2 text-white">
-                        {{ticket.typeError}}
-                    </span>
-                    <img src="/assets/images/profile.webp" alt="" class="profile-image" *ngIf="!ticket.inchargeObj" />
-                    <img [matTooltip]="ticket.inchargeObj.displayName ? ticket.inchargeObj.displayName : ''"
-                        [src]="ticket.inchargeObj.photoURL" alt="" class="profile-image" *ngIf="ticket.inchargeObj" />
-
-                </div>
-            
-            </div>
-        
-        </section>
         
     </div> 
 
